@@ -1,7 +1,7 @@
 {
-  "name": "brained-server",
+  "name": "fitrack-server",
   "version": "1.0.0",
-  "description": "BrainEd by Abdul Farhan ~capstone project~",
+  "description": "Fitrack app",
   "main": "server.js",
   "scripts": {
     "test": "jest",
