@@ -1,0 +1,76 @@
+@import "../../styles/partials/global";
+
+.nav-container {
+  margin: 1.875rem 0 0.3125rem 0;
+  box-shadow: 0 10px 10px -5px black;
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 3.125vw 0 3.125vw;
+    @include desktop {
+      justify-content: space-around;
+    }
+  }
+  &__logo-container {
+    display: flex;
+    margin: 0 0 0.625rem 0;
+    @include tablet {
+      font-size: 1.875rem;
+    }
+  }
+
+  &__logo {
+    width: 3.125rem;
+    height: 3.125rem;
+
+    &-name {
+      letter-spacing: 2px;
+      margin: 1rem 0.625rem;
+      font-weight: 600;
+      margin-bottom: 0;
+      font-size: 1.25rem;
+      @include tablet {
+        font-size: 1.875rem;
+      }
+    }
+    &-link {
+      display: flex;
+      align-items: flex-end;
+      text-decoration: none;
+      color: $graphite;
+    }
+  }
+
+  &__list-container {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 0 0.625rem 0;
+  }
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+    width: 48.4375vw;
+    @include tablet {
+      width: 33.854vw;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+    }
+    @include desktop {
+      width: 20vw;
+    }
+
+    &-item {
+      margin-left: 0.625rem;
+      &-link {
+        text-decoration: none;
+        color: $graphite;
+      }
+    }
+  }
+}

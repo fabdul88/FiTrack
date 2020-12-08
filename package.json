@@ -1,0 +1,22 @@
+{
+  "name": "brained-server",
+  "version": "1.0.0",
+  "description": "BrainEd by Abdul Farhan ~capstone project~",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "build": "cd fitrack-client && npm run build",
+    "install-client": "cd fitrack-client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "node server.js"
+  },
+  "author": "Abdul Farhan",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9",
+    "nodemon": "^2.0.5"
+  }
+}

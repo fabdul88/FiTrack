@@ -1,0 +1,16 @@
+@import "../../styles/partials/global";
+
+.error {
+  font-family: "Avenir";
+  display: flex;
+  justify-content: center;
+  &__text {
+    margin-top: 3.125rem;
+    color: #afafaf;
+    font-size: 6.25vw;
+  }
+  &__image {
+    width: 29vw;
+    height: 33.625vw;
+  }
+}
