@@ -4,8 +4,6 @@ const app = express();
 
 const mongoose = require("mongoose");
 
-const path = require("path");
-
 // Middleware
 const cors = require("cors");
 app.use(cors());
@@ -33,6 +31,12 @@ app.use("/users", usersRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("fitrack-client/build"));
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(_dirname, "fitrack-client", "build", "index.html")
+    );
+  });
 }
 
 // Express Server connection
