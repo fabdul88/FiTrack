@@ -1,7 +1,7 @@
 // Creating Express Server
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 const mongoose = require("mongoose");
 
@@ -41,4 +41,4 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Express Server connection
-app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+app.listen(PORT || 8080, () => console.log(`listening on port ${PORT}`));
