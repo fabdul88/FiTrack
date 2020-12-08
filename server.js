@@ -41,4 +41,4 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Express Server connection
-app.listen(PORT, () => console.log(`listening on port ${process.env.PORT}`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
