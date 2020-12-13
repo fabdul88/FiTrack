@@ -6,10 +6,10 @@
   "scripts": {
     "test": "jest",
     "build": "cd fitrack-client && npm run build",
-    "install-client": "npm install --prefix fitrack-client",
+    "install-client": "cd fitrack-client && npm install",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=FALSE npm run install --prefix client && npm run build --prefix client",
     "start": "node server.js",
-    "client": "npm start --prefix fitrack-client",
-    "heroku-postbuild": "npm run install --prefix fitrack-client && npm run build --prefix fitrack-client"
+    "client": "cd fitrack-client && npm start"
   },
   "author": "Abdul Farhan",
   "license": "MIT",
