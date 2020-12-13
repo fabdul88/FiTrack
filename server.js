@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 
 const mongoose = require("mongoose");
+const PORT = process.env.PORT;
 
 // Middleware
 const cors = require("cors");
@@ -39,7 +40,6 @@ if (process.env.NODE_ENV === "production") {
     );
   });
 }
-const PORT = process.env.PORT || 8080;
 
 // Express Server connection
-app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+app.listen(PORT || 8080, () => console.log(`listening on port ${PORT}`));
