@@ -9,6 +9,7 @@
     "install-client": "cd fitrack-client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node server.js",
+    "server": "nodemon server.js",
     "client": "cd fitrack-client && npm start"
   },
   "author": "Abdul Farhan",
