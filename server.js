@@ -1,7 +1,6 @@
 // Creating Express Server
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT;
 
 const mongoose = require("mongoose");
 
@@ -32,6 +31,7 @@ app.use("/users", usersRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("fitrack-client/build"));
+
   const path = require("path");
   app.get("*", (req, res) => {
     res.sendFile(
@@ -39,6 +39,7 @@ if (process.env.NODE_ENV === "production") {
     );
   });
 }
+const PORT = process.env.PORT || 8080;
 
 // Express Server connection
-app.listen(PORT || 8080, () => console.log(`listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
