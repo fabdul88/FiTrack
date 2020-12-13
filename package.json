@@ -9,7 +9,7 @@
     "install-client": "npm install --prefix fitrack-client",
     "start": "node server.js",
     "client": "npm start --prefix fitrack-client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=FALSE npm run install --prefix fitrack-client && npm run build --prefix fitrack-client"
+    "heroku-postbuild": "npm run install --prefix fitrack-client && npm run build --prefix fitrack-client"
   },
   "author": "Abdul Farhan",
   "license": "MIT",
