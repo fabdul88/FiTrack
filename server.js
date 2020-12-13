@@ -1,9 +1,9 @@
 // Creating Express Server
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT;
 
 const mongoose = require("mongoose");
-const PORT = process.env.PORT;
 
 // Middleware
 const cors = require("cors");
