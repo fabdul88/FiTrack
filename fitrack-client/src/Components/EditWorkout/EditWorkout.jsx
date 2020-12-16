@@ -14,7 +14,7 @@ export default class EditWorkout extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:8080/workouts/${this.props.match.params.id}`)
+      .get(`/workouts/${this.props.match.params.id}`)
       .then((res) => {
         this.setState({
           username: res.data.username,
@@ -25,7 +25,7 @@ export default class EditWorkout extends React.Component {
       })
       .catch((err) => console.log(err));
     axios
-      .get("http://localhost:8080/users")
+      .get("/users")
       .then((response) => {
         // checking if there are users in the database
         if (response.data.length > 0) {
@@ -69,10 +69,7 @@ export default class EditWorkout extends React.Component {
     };
 
     axios
-      .post(
-        `http://localhost:8080/workouts/update/${this.props.match.params.id}`,
-        workout
-      )
+      .post(`/workouts/update/${this.props.match.params.id}`, workout)
       .then((res) => {
         this.props.history.push({
           pathname: "/workoutlist",

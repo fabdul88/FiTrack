@@ -21,7 +21,7 @@ export default class CreateUser extends React.Component {
     };
 
     axios
-      .post("http://localhost:8080/users/add", user)
+      .post("/users/add", user)
       .then((res) => {
         this.props.history.push({
           pathname: "/createworkout",

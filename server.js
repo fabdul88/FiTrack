@@ -1,7 +1,7 @@
 // Creating Express Server
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 const mongoose = require("mongoose");
 
@@ -9,6 +9,15 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 app.use(cors());
 app.use(express.json()); // Parsing JSON
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   if ((req, method === "options")) {
+//     res.header("Access-Control-Allow-Methods", "PUT,POST,PATCH, DELETE, GET");
+//     return res.status(200).json({});
+//   }
+//   next();
+// });
 
 require("dotenv").config();
 
@@ -43,4 +52,4 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Express Server connection
-app.listen(PORT || 8080, () => console.log(`listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));

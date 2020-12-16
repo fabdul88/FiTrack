@@ -13,7 +13,7 @@ class WorkoutList extends React.Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:8080/workouts")
+      .get("/workouts")
       .then((res) => {
         this.setState({
           workouts: res.data,
@@ -24,7 +24,7 @@ class WorkoutList extends React.Component {
 
   deleteWorkout = (id) => {
     axios
-      .delete(`http://localhost:8080/workouts/${id}`)
+      .delete(`/workouts/${id}`)
       .then((response) => console.log(response.data));
     this.setState({
       workouts: this.state.workouts.filter((element) => element._id !== id),

@@ -14,7 +14,7 @@ export default class CreateWorkout extends React.Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:8080/users")
+      .get("/users")
       .then((response) => {
         // checking if there are users in the database
 
@@ -62,7 +62,7 @@ export default class CreateWorkout extends React.Component {
     };
 
     axios
-      .post("http://localhost:8080/workouts/add", workout)
+      .post("/workouts/add", workout)
       .then((res) => {
         this.props.history.push({
           pathname: "/workoutlist",
