@@ -31,7 +31,6 @@ app.use("/workouts", workoutsRouter);
 app.use("/users", usersRouter);
 
 if (process.env.NODE_ENV === "production") {
-  console.log("production");
   app.use(express.static("fitrack-client/build"));
 
   const path = require("path");
