@@ -19,11 +19,9 @@
     justify-content: center;
     width: 84.25vw;
     letter-spacing: 7px;
-    // width: 66.25vw;
     margin: 0;
     padding-top: 9.375rem;
     color: $white;
-    opacity: 90%;
     background: -webkit-linear-gradient(45deg, #eee, #333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -35,7 +33,6 @@
     @include tablet {
       width: 66.255vw;
       letter-spacing: 11px;
-      // width: 53.255vw;
       font-size: 16.3125vw;
     }
     @include desktop {
@@ -47,9 +44,7 @@
     font-family: "MontserratR";
     letter-spacing: 1px;
     box-sizing: border-box;
-    // width: 59.0624vw;
     width: 79.0624vw;
-    // color: $white;
     background: -webkit-linear-gradient(#eee, #333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -60,9 +55,7 @@
       text-shadow: 0 0px 6px white;
     }
     @include tablet {
-      // width: 51.0624vw;
       width: 71.0624vw;
-
       font-size: 5.42vw;
     }
     @include desktop {
