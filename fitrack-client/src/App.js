@@ -6,12 +6,11 @@ import {
   Redirect,
 } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import Home from "./Components/Home/Home";
+import Landing from "./Components/Landing/Landing";
 import Navigation from "./Components/Header/Navigation";
 import PageNotFound from "./Components/PageNotFound/PageNotFound";
 import WorkoutList from "./Components/WorkoutList/WorkoutList";
 import CreateWorkout from "./Components/CreateWorkout/CreateWorkout";
-import "./App.scss";
 import CreateUser from "./Components/CreateUser/CreateUser";
 import EditWorkout from "./Components/EditWorkout/EditWorkout";
 
@@ -27,7 +26,7 @@ class App extends React.Component {
                 exact
                 path="/"
                 component={() => {
-                  return <Home />;
+                  return <Landing />;
                 }}
               />
               <Route

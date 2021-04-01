@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   &__card {
-    margin-top: 3.125rem;
+    margin-top: 4.125rem;
     padding: 1.25rem;
     width: 16.25rem;
     background: rgba(255, 255, 255, 0.4);
@@ -92,11 +92,11 @@
     width: 3.8399rem;
   }
   &__category-hr {
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     width: 37.375rem;
   }
   &__result-hr {
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     width: 37.375rem;
   }
   &__action-delete,
@@ -167,7 +167,7 @@
     font-size: 0.75rem;
   }
   &__bottom-hr-mobile {
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   &__action-button-delete-mobile,
   &__action-button-edit-mobile {

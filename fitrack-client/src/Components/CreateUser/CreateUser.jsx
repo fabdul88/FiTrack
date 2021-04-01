@@ -28,9 +28,6 @@ export default class CreateUser extends React.Component {
           state: { username: this.state.username },
         });
         console.log(res.data);
-        this.setState({
-          username: "",
-        });
       })
       .catch((err) => console.log(err));
   };

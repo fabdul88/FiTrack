@@ -5,10 +5,40 @@
   box-shadow: 0 10px 10px -5px black;
   &__nav {
     display: flex;
+    position: relative;
     justify-content: space-between;
     margin: 0 3.125vw 0 3.125vw;
     @include desktop {
       justify-content: space-around;
+      height: 63px;
+    }
+  }
+  &__burger {
+    width: 35px;
+    height: 35px;
+    &:hover {
+      cursor: pointer;
+    }
+    @include desktop {
+      display: none;
+    }
+    &-hide {
+      display: none;
+    }
+  }
+  &__close-container {
+    position: absolute;
+    top: -60px;
+    right: 0;
+  }
+  &__close {
+    width: 35px;
+    height: 35px;
+    @include desktop {
+      display: none;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
   &__logo-container {
@@ -43,30 +73,65 @@
 
   &__list-container {
     display: flex;
+    position: absolute;
+    z-index: 5;
+    background: #ffffff;
+    right: 0;
+    padding: 20px 0px;
+    border-radius: 0px 0px 4px 4px;
+    top: 100%;
+    width: 100%;
+    justify-content: center;
+    left: 0;
     align-items: flex-end;
     margin: 0 0 0.625rem 0;
+    @include desktop {
+      position: relative;
+      top: 0;
+      width: 20vw;
+      padding: 20px 0;
+    }
+    &-hide {
+      display: none;
+      @include desktop {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        width: 20vw;
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 5;
+        background: #ffffff;
+        margin: 0 0 0.625rem 0;
+        padding: 20px 0;
+      }
+    }
   }
 
   &__list {
+    width: 70%;
+    margin: 0;
     display: flex;
     justify-content: space-between;
     text-decoration: none;
     list-style: none;
     padding: 0;
-    margin-bottom: 0;
-    font-weight: 600;
     width: 48.4375vw;
+    letter-spacing: 2px;
     @include tablet {
       width: 33.854vw;
       font-size: 1.25rem;
-      letter-spacing: 2px;
     }
     @include desktop {
       width: 20vw;
+      margin-top: 16px;
     }
 
     &-item {
       margin-left: 0.625rem;
+      font-size: 15px;
       &-link {
         text-decoration: none;
         color: $graphite;
