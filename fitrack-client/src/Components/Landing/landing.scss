@@ -24,12 +24,14 @@
     padding-top: 9.375rem;
     color: $white;
     opacity: 90%;
-    // background: -webkit-linear-gradient(45deg, #eee, #333);
-    // -webkit-background-clip: text;
-    // -webkit-text-fill-color: transparent;
+    background: -webkit-linear-gradient(45deg, #eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 20.3125vw;
-    text-shadow: 0 0px 12px rgba(255, 255, 255, 1);
-
+    text-shadow: 0 0px 12px rgba(255, 255, 255, 0.7);
+    &:hover {
+      text-shadow: 0 0px 12px rgba(255, 255, 255, 0.8);
+    }
     @include tablet {
       width: 66.255vw;
       letter-spacing: 11px;
