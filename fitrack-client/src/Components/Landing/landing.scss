@@ -1,13 +1,7 @@
 @import "../../styles/partials/global";
 
 .landing-container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(../../assets/backgroundImage/hero.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
+  @include backgroundImage;
   &__title-container {
     display: flex;
     flex-direction: column;
@@ -38,7 +32,7 @@
     }
     @include desktop {
       width: 50rem;
-      font-size: 210px;
+      font-size: 13.125rem;
     }
   }
   &__slogan {
@@ -54,7 +48,7 @@
     text-align: center;
     &-span {
       font-family: "MontserratT";
-      text-shadow: 0 0px 6px white;
+      text-shadow: 0 0px 6px $white;
     }
     @include tablet {
       width: 71.0624vw;

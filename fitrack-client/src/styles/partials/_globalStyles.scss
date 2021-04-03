@@ -1,0 +1,76 @@
+// universal page background
+@mixin backgroundImage {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../../assets/backgroundImage/hero.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// card style
+@mixin cardStyle {
+  margin: 4.125rem 0 0 0;
+  padding: 1.25rem;
+  width: 16.25rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+  transition: 0.5s;
+  @content;
+}
+
+// button hover style
+@mixin buttonHoverStyle {
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid $black;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+// card hover style
+@mixin cardHoverStyle {
+  box-shadow: 0 20px 50px rgba(255, 255, 255, 0.7);
+  transition: 0.5s;
+}
+
+// form input style
+@mixin formInputStyle {
+  font-family: "MontserratR";
+  width: stretch;
+  border-radius: 1.25rem;
+  outline: none;
+  padding: 0.4375rem 1rem;
+  border: 1px solid $cloud;
+  letter-spacing: 1px;
+}
+
+// form input hover and focus style
+@mixin formInputHoverFocus {
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 3pt 2pt rgba(93, 173, 226, 0.9);
+}
+
+// form button style
+@mixin formButtonStyle {
+  font-family: "MontserratT";
+  border-radius: 1.25rem;
+  border: none;
+  outline: none;
+  padding: 0.4375rem 1rem;
+  height: 2.25rem;
+  letter-spacing: 1px;
+  width: 63%;
+  margin: 1.25rem 0 0 0;
+}
