@@ -2,7 +2,7 @@
 
 .user-container {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(../../assets/hero.jpg);
+    url(../../assets/backgroundImage/hero.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -40,7 +40,7 @@
     letter-spacing: 2px;
   }
   &__image {
-    background-image: url(../../assets/user.svg);
+    background-image: url(../../assets/createUserImage/user.svg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 12.5rem;

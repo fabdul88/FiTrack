@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { navigationData } from "./navigationData";
 import { motion } from "framer-motion";
-import Logo from "../../assets/stopwatch.svg";
+import Logo from "../../assets/logo/stopwatch.svg";
 import "./navigation.scss";
-import burger from "../../assets/burger.svg";
-import close from "../../assets/close.svg";
+import burger from "../../assets/icons/burger.svg";
+import close from "../../assets/icons/close.svg";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +13,7 @@ export default function Navigation() {
   const burgerStatus = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <div className="nav-container">
       <nav className="nav-container__nav">

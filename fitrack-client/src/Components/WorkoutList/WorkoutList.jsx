@@ -2,8 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Delete from "../../assets/delete.svg";
-import Edit from "../../assets/edit.svg";
+import Delete from "../../assets/icons/delete.svg";
+import Edit from "../../assets/icons/edit.svg";
 import "./workoutList.scss";
 
 class WorkoutList extends React.Component {
@@ -32,20 +32,40 @@ class WorkoutList extends React.Component {
   };
 
   render() {
-    const transition = { duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] };
+    // Framer motion animations
+    const cardVariants = {
+      initial: {
+        opacity: 0,
+        x: "-500vw",
+        scale: 0,
+      },
+      in: {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+      },
+      out: {
+        opacity: 0,
+        x: "500vw",
+        scale: 0,
+      },
+    };
+    // Framer motion animations
+    const cardTransition = {
+      type: "tween",
+      ease: "anticipate",
+      duration: 0.8,
+    };
+
     return (
-      <motion.div
-        className="main-list"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <div className="main-list">
         <motion.div
           className="main-list__card"
-          initial={{ opacity: 0, x: "-100vw" }}
-          animate={{ opacity: 1, x: "0" }}
-          exit={{ opacity: 0, x: "-100vw" }}
-          transition={transition}
+          initial="initial"
+          animate="in"
+          exit="out"
+          variants={cardVariants}
+          transition={cardTransition}
         >
           <div className="main-list__title-container">
             <h2 className="main-list__title">USERS GOAL LIST </h2>
@@ -77,12 +97,12 @@ class WorkoutList extends React.Component {
             return (
               <div key={user.username}>
                 <motion.div
+                  className="main-list__result-container-mobile main-list__hide-mobile"
                   whileHover={{
                     textShadow: "0 0 8px rgb(255,255,255)",
                     scale: 1.02,
                     duration: 1,
                   }}
-                  className="main-list__result-container-mobile main-list__hide-mobile"
                 >
                   <div className="main-list__top-section-mobile">
                     <div className="main-list__username-container-mobile">
@@ -113,13 +133,13 @@ class WorkoutList extends React.Component {
                     <div className="main-list__action-container-mobile">
                       <h4 className="main-list__action-label-mobile">ACTION</h4>
                       <div>
-                        <Link
-                          to="#"
-                          onClick={() => {
-                            this.deleteWorkout(user._id);
-                          }}
-                        >
-                          <button className="main-list__action-button-delete-mobile main-list__hide-mobile">
+                        <Link to="#">
+                          <button
+                            className="main-list__action-button-delete-mobile main-list__hide-mobile"
+                            onClick={() => {
+                              this.deleteWorkout(user._id);
+                            }}
+                          >
                             <motion.img
                               whileHover={{
                                 scale: 1.4,
@@ -223,7 +243,7 @@ class WorkoutList extends React.Component {
             );
           })}
         </motion.div>
-      </motion.div>
+      </div>
     );
   }
 }

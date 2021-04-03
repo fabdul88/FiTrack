@@ -4,14 +4,17 @@ import { motion } from "framer-motion";
 import "./landing.scss";
 
 export default function Hero() {
-  const transition = { duration: 2, ease: [0.43, 0.13, 0.23, 0.96] };
+  const transition = {
+    duration: 1,
+    ease: [0.43, 0.13, 0.23, 0.96],
+  };
 
   return (
     <motion.div
       className="landing-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      // initial={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
+      // exit={{ opacity: 0 }}
     >
       <div className="landing-container__title-container">
         <h1 className="landing-container__title">FiTrack</h1>

@@ -33,23 +33,39 @@ export default class CreateUser extends React.Component {
   };
 
   render() {
-    const transition = {
-      duration: 0.3,
-      ease: [0.43, 0.13, 0.23, 0.96],
+    // Framer motion animations
+    const cardVariants = {
+      initial: {
+        opacity: 0,
+        x: "-500vw",
+        scale: 0,
+      },
+      in: {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+      },
+      out: {
+        opacity: 0,
+        x: "500vw",
+        scale: 0,
+      },
+    };
+    // Framer motion animations
+    const cardTransition = {
+      type: "tween",
+      ease: "anticipate",
+      duration: 0.8,
     };
     return (
-      <motion.div
-        className="user-container"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <div className="user-container">
         <motion.div
           className="user-container__card"
-          initial={{ opacity: 0, y: "-500vw" }}
-          animate={{ opacity: 1, y: "0" }}
-          exit={{ opacity: 0, y: "-500vw" }}
-          transition={transition}
+          initial="initial"
+          animate="in"
+          exit="out"
+          variants={cardVariants}
+          transition={cardTransition}
         >
           <div className="user-container__title-container">
             <h2 className="user-container__title">CREATE USER </h2>
@@ -74,7 +90,7 @@ export default class CreateUser extends React.Component {
             </form>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     );
   }
 }

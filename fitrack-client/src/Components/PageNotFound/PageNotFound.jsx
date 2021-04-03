@@ -1,6 +1,6 @@
 import React from "react";
 import "./pageNotFound.scss";
-import Error from "../../assets/error.png";
+import Error from "../../assets/errorImage/error.png";
 
 export default function NotFoundPage() {
   return (

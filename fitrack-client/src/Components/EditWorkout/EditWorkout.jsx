@@ -81,20 +81,35 @@ export default class EditWorkout extends React.Component {
   };
 
   render() {
-    const transition = { duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] };
+    // Framer motion animations
+    const cardVariants = {
+      in: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+      },
+      out: {
+        opacity: 0,
+        y: "-500vh",
+        scale: 0,
+      },
+    };
+    // Framer motion animations
+    const cardTransition = {
+      type: "tween",
+      ease: "anticipate",
+      duration: 0.8,
+    };
+
     return (
-      <motion.div
-        className="edit-container"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <div className="edit-container">
         <motion.div
           className="edit-container__card"
-          initial={{ opacity: 0, x: "-100vw" }}
-          animate={{ opacity: 1, x: "0" }}
-          exit={{ opacity: 0, x: "-100vw" }}
-          transition={transition}
+          initial="out"
+          animate="in"
+          exit="out"
+          variants={cardVariants}
+          transition={cardTransition}
         >
           <div className="edit-container__title-container">
             <h2 className="edit-container__title">EDIT WORKOUT</h2>
@@ -163,7 +178,7 @@ export default class EditWorkout extends React.Component {
             </form>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     );
   }
 }
