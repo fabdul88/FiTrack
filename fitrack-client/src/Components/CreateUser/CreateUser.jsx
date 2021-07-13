@@ -25,7 +25,7 @@ export default class CreateUser extends React.Component {
       .then((res) => {
         this.props.history.push({
           pathname: "/createworkout",
-          state: { username: this.state.username },
+          state: user,
         });
         console.log(res.data);
       })

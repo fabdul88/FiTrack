@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { navigationData } from "./navigationData";
-import { motion } from "framer-motion";
 import Logo from "../../assets/logo/stopwatch.svg";
 import "./navigation.scss";
 import burger from "../../assets/icons/burger.svg";
@@ -46,25 +45,25 @@ export default function Navigation() {
           <ul className="nav-container__list">
             {navigationData.map((nav) => {
               return (
-                <Link
+                <NavLink
                   key={nav.id}
                   to={nav.url}
                   className="nav-container__list-item-link"
+                  activeStyle={{
+                    color: `#239B56`,
+                    textShadow: `0 0 8px rgb(82,190,128)`,
+                    
+                  }}
                 >
-                  <motion.li
+                  <li
                     className="nav-container__list-item"
-                    whileHover={{
-                      scale: 1.5,
-                      textShadow: "0 0 8px rgb(82,190,128)",
-                      color: "#239B56",
-                    }}
                     onClick={() => {
                       setIsOpen(false);
                     }}
                   >
                     {nav.category}
-                  </motion.li>
-                </Link>
+                  </li>
+                </NavLink>
               );
             })}
           </ul>
