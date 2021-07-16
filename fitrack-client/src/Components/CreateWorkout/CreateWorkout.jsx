@@ -262,7 +262,6 @@ const CreateWorkout = () => {
       .catch((err) => console.log(err));
   }
 
-  // render() {
   // Framer motion animations
   const cardVariants = {
     initial: {
@@ -367,8 +366,6 @@ const CreateWorkout = () => {
       </motion.div>
     </div>
   );
-  // }
-  // )
 };
 
 export default CreateWorkout;

@@ -20,7 +20,6 @@ const App = () => {
   const location = useLocation();
   return (
     <div className="app" style={{ overflowX: "hidden", overflowY: "hidden" }}>
-      {/* <Router> */}
       <Navigation />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
@@ -33,22 +32,22 @@ const App = () => {
           />
           <Route
             path="/workoutlist"
-            render={(props) => {
-              return <WorkoutList {...props} />;
+            render={() => {
+              return <WorkoutList />;
             }}
           />
           ;
           <Route
             path="/createworkout"
-            render={(props) => {
-              return <CreateWorkout {...props} />;
+            render={() => {
+              return <CreateWorkout />;
             }}
           />
           ;
           <Route
             path="/createuser"
-            render={(props) => {
-              return <CreateUser {...props} />;
+            render={() => {
+              return <CreateUser />;
             }}
           />
           ;
@@ -69,7 +68,6 @@ const App = () => {
           <Redirect to="/404" />
         </Switch>
       </AnimatePresence>
-      {/* </Router> */}
     </div>
   );
 };
