@@ -190,25 +190,25 @@
 //   }
 // }
 
-import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import axios from "axios";
-import "./createWorkout.scss";
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import axios from 'axios';
+import './createWorkout.scss';
 
 const CreateWorkout = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const [username, setUserName] = useState("");
-  const [description, setDescription] = useState("");
+  const [username, setUserName] = useState('');
+  const [description, setDescription] = useState('');
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/users")
+      .get('/users')
       .then((response) => {
         // checking if there are users in the database
         if (response.data.length > 0) {
@@ -251,10 +251,10 @@ const CreateWorkout = () => {
     };
 
     axios
-      .post("/workouts/add", workout)
+      .post('/workouts/add', workout)
       .then((res) => {
         history.push({
-          pathname: "/workoutlist",
+          pathname: '/workoutlist',
           state: { username: name },
         });
         console.log(res.data);
@@ -266,7 +266,7 @@ const CreateWorkout = () => {
   const cardVariants = {
     initial: {
       opacity: 0,
-      x: "-500vw",
+      x: '-500vw',
       scale: 0,
     },
     in: {
@@ -276,14 +276,14 @@ const CreateWorkout = () => {
     },
     out: {
       opacity: 0,
-      x: "500vw",
+      x: '500vw',
       scale: 0,
     },
   };
   // Framer motion animations
   const cardTransition = {
-    type: "tween",
-    ease: "anticipate",
+    type: 'tween',
+    ease: 'anticipate',
     duration: 0.8,
   };
 

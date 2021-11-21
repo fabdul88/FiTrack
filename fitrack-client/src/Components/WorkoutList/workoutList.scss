@@ -1,4 +1,4 @@
-@import "../../styles/partials/global";
+@import '../../styles/partials/global';
 .main-list {
   @include backgroundImage;
   &__card {
@@ -44,9 +44,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5px;
+    // padding: 0 5px;
+
+    margin: 0 auto;
     &:hover {
-      transition: all 0.3s ease-in-out;
+      transition: all 0.2s ease-in-out;
       background-color: rgba(255, 255, 255, 0.2);
       border-radius: 4px;
     }
@@ -55,6 +57,9 @@
     width: 5.375rem;
     letter-spacing: 1px;
     font-weight: 500;
+  }
+  &__username-result-container {
+    margin-left: 5px;
   }
   &__description-result {
     width: 6.4756rem;

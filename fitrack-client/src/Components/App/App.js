@@ -32,21 +32,21 @@ const App = () => {
           />
           <Route
             path="/workoutlist"
-            render={() => {
+            component={() => {
               return <WorkoutList />;
             }}
           />
           ;
           <Route
             path="/createworkout"
-            render={() => {
+            component={() => {
               return <CreateWorkout />;
             }}
           />
           ;
           <Route
             path="/createuser"
-            render={() => {
+            component={() => {
               return <CreateUser />;
             }}
           />

@@ -29,14 +29,15 @@ router.route("/:id").get((req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-// deleting a user
+// deleting a user Workout
 router.route("/:id").delete((req, res) => {
-  Workout.findByIdAndDelete(req.params.id)
+  const id = req.params.id;
+  Workout.findByIdAndDelete(id)
     .then(() => res.json("workout Deleted"))
     .catch((err) => res.status(400).json(err));
 });
 
-// Editing / updating a user
+// Editing / updating a user workout
 router.route("/update/:id").post((req, res) => {
   Workout.findById(req.params.id)
     .then((workout) => {

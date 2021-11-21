@@ -252,20 +252,20 @@
 
 // export default WorkoutList;
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Delete from "../../assets/icons/delete.svg";
-import Edit from "../../assets/icons/edit.svg";
-import "./workoutList.scss";
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Delete from '../../assets/icons/delete.svg';
+import Edit from '../../assets/icons/edit.svg';
+import './workoutList.scss';
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/workouts")
+      .get('/workouts')
       .then((res) => {
         setWorkouts(res.data);
       })
@@ -283,7 +283,7 @@ const WorkoutList = () => {
   const cardVariants = {
     initial: {
       opacity: 0,
-      x: "-500vw",
+      x: '-500vw',
       scale: 0,
     },
     in: {
@@ -293,14 +293,14 @@ const WorkoutList = () => {
     },
     out: {
       opacity: 0,
-      x: "500vw",
+      x: '500vw',
       scale: 0,
     },
   };
   // Framer motion animations
   const cardTransition = {
-    type: "tween",
-    ease: "anticipate",
+    type: 'tween',
+    ease: 'anticipate',
     duration: 0.8,
   };
 
@@ -346,9 +346,7 @@ const WorkoutList = () => {
               <motion.div
                 className="main-list__result-container-mobile main-list__hide-mobile"
                 whileHover={{
-                  textShadow: "0 0 8px rgb(255,255,255)",
                   scale: 1.02,
-                  duration: 1,
                 }}
               >
                 <div className="main-list__top-section-mobile">
@@ -383,30 +381,29 @@ const WorkoutList = () => {
                       <Link to="#">
                         <button
                           className="main-list__action-button-delete-mobile main-list__hide-mobile"
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault();
                             deleteWorkout(user._id);
                           }}
                         >
                           <motion.img
                             whileHover={{
                               scale: 1.4,
-                              textShadow: "0 0 8px rgb(0,0,0)",
                             }}
-                            transition={{ type: "spring", stiffness: 1000 }}
+                            transition={{ type: 'spring', stiffness: 1000 }}
                             className="main-list__action-delete-mobile"
                             src={Delete}
                             alt="Delete"
                           />
                         </button>
                       </Link>
-                      <Link to={"/edit/" + user._id}>
+                      <Link to={'/edit/' + user._id}>
                         <button className="main-list__action-button-edit-mobile main-list__hide-mobile">
                           <motion.img
                             whileHover={{
                               scale: 1.4,
-                              textShadow: "0 0 8px rgb(0,0,0)",
                             }}
-                            transition={{ type: "spring", stiffness: 1000 }}
+                            transition={{ type: 'spring', stiffness: 1000 }}
                             className="main-list__action-edit-mobile"
                             src={Edit}
                             alt="Edit"
@@ -424,7 +421,6 @@ const WorkoutList = () => {
               <motion.div
                 className="main-list__result-container main-list__hide-tabdesk"
                 whileHover={{
-                  textShadow: "0 0 8px rgb(255,255,255)",
                   scale: 1.02,
                   duration: 1,
                 }}
@@ -452,7 +448,8 @@ const WorkoutList = () => {
                 <div className="main-list__action-result-container">
                   <Link
                     to="#"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
                       deleteWorkout(user._id);
                     }}
                   >
@@ -460,23 +457,21 @@ const WorkoutList = () => {
                       <motion.img
                         whileHover={{
                           scale: 1.4,
-                          textShadow: "0 0 8px rgb(0,0,0)",
                         }}
-                        transition={{ type: "spring", stiffness: 1000 }}
+                        transition={{ type: 'spring', stiffness: 1000 }}
                         className="main-list__action-delete"
                         src={Delete}
                         alt="Delete"
                       />
                     </button>
                   </Link>
-                  <Link to={"/edit/" + user._id}>
+                  <Link to={'/edit/' + user._id}>
                     <button className="main-list__action-button-edit main-list__hide-tabdesk">
                       <motion.img
                         whileHover={{
                           scale: 1.4,
-                          textShadow: "0 0 8px rgb(0,0,0)",
                         }}
-                        transition={{ type: "spring", stiffness: 1000 }}
+                        transition={{ type: 'spring', stiffness: 1000 }}
                         className="main-list__action-edit"
                         src={Edit}
                         alt="Edit"
