@@ -1,3 +1,4 @@
+@use './colors';
 // universal page background
 @mixin backgroundImage {
   display: flex;
@@ -42,7 +43,7 @@
 @mixin buttonHoverStyle {
   background-color: transparent;
   border: none;
-  border-bottom: 3px solid $black;
+  border-bottom: 3px solid colors.$black;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   transition: 0.1s;
@@ -62,7 +63,7 @@
   border-radius: 1.25rem;
   outline-width: 0px;
   padding: 0.4375rem 1rem;
-  border: 1px solid $cloud;
+  border: 1px solid colors.$cloud;
   letter-spacing: 1px;
 }
 
@@ -74,7 +75,7 @@
 
 // form button style
 @mixin formButtonStyle {
-  font-family: 'MontserratT';
+  font-family: 'MontserratR';
   border-radius: 1.25rem;
   border: none;
   outline-width: 0px;

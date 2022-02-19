@@ -1,4 +1,4 @@
-@import "./mediaQuery";
-@import "./fonts";
-@import "./colors";
-@import "./globalStyles";
+@forward './mediaQuery';
+@forward './fonts';
+@forward './colors';
+@forward './globalStyles';

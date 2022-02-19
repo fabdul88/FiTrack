@@ -1,14 +1,14 @@
-@import "../../styles/partials/global";
+@use '../../styles/partials/global';
 .user-container {
-  @include backgroundImage;
+  @include global.backgroundImage;
   &__card {
-    @include cardStyle {
+    @include global.cardStyle {
       align-items: center;
-      @include tablet {
+      @include global.tablet {
         width: 25rem;
       }
       &:hover {
-        @include cardHoverStyle;
+        @include global.cardHoverStyle;
       }
     }
   }
@@ -27,7 +27,7 @@
     width: 12.5rem;
     height: 12.5rem;
     border-radius: 9.375rem;
-    @include tablet {
+    @include global.tablet {
       width: 18.75rem;
       height: 18.75rem;
     }
@@ -43,10 +43,10 @@
     padding-bottom: 0.3125rem;
   }
   &__user {
-    @include formInputStyle;
+    @include global.formInputStyle;
     &:hover,
     &:focus {
-      @include formInputHoverFocus;
+      @include global.formInputHoverFocus;
     }
   }
   &__button-container {
@@ -54,9 +54,9 @@
     justify-content: center;
   }
   &__button {
-    @include formButtonStyle;
+    @include global.formButtonStyle;
     &:hover {
-      @include buttonHoverStyle;
+      @include global.buttonHoverStyle;
     }
   }
 }

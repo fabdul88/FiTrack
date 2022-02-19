@@ -1,17 +1,17 @@
-@import '../../styles/partials/global';
+@use '../../styles/partials/global';
 .main-list {
-  @include backgroundImage;
+  @include global.backgroundImage;
   &__card {
-    @include cardStyle {
+    @include global.cardStyle {
       align-items: center;
-      @include tablet {
+      @include global.tablet {
         width: 37.5rem;
       }
-      @include desktop {
+      @include global.desktop {
         width: 37.5rem;
       }
       &:hover {
-        @include cardHoverStyle;
+        @include global.cardHoverStyle;
       }
     }
   }
@@ -114,15 +114,15 @@
   }
   &__hide-tabdesk {
     display: none;
-    @include tablet {
+    @include global.tablet {
       display: flex;
     }
   }
   &__hide-mobile {
-    @include tablet {
+    @include global.tablet {
       display: none;
     }
-    @include desktop {
+    @include global.desktop {
       display: none;
     }
   }

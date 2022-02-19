@@ -1,4 +1,4 @@
-@import "../../styles/partials/global";
+@use '../../styles/partials/global';
 
 .nav-container {
   display: flex;
@@ -17,7 +17,7 @@
     align-items: center;
     margin: 0 3.125vw 0 3.125vw;
     background: #ffffff;
-    @include desktop {
+    @include global.desktop {
       justify-content: space-around;
       height: 63px;
     }
@@ -29,7 +29,7 @@
     &:hover {
       cursor: pointer;
     }
-    @include desktop {
+    @include global.desktop {
       display: none;
     }
     &-hide {
@@ -40,12 +40,11 @@
     position: absolute;
     top: -60px;
     right: 0;
-
   }
   &__close {
     width: 35px;
     height: 35px;
-    @include desktop {
+    @include global.desktop {
       display: none;
     }
     &:hover {
@@ -55,7 +54,7 @@
   &__logo-container {
     display: flex;
     margin: 0 0 0.625rem 0;
-    @include tablet {
+    @include global.tablet {
       font-size: 1.875rem;
     }
   }
@@ -70,7 +69,7 @@
       font-weight: 600;
       margin-bottom: 0;
       font-size: 1.25rem;
-      @include tablet {
+      @include global.tablet {
         font-size: 1.875rem;
       }
     }
@@ -78,7 +77,7 @@
       display: flex;
       align-items: flex-end;
       text-decoration: none;
-      color: $graphite;
+      color: global.$graphite;
     }
   }
 
@@ -96,7 +95,7 @@
     left: 0;
     align-items: flex-end;
     margin: 0 0 0.625rem 0;
-    @include desktop {
+    @include global.desktop {
       position: relative;
       top: 0;
       width: 20vw;
@@ -104,7 +103,7 @@
     }
     &-hide {
       display: none;
-      @include desktop {
+      @include global.desktop {
         display: flex;
         justify-content: center;
         align-items: flex-end;
@@ -131,11 +130,11 @@
     padding: 0;
     width: 48.4375vw;
     letter-spacing: 2px;
-    @include tablet {
+    @include global.tablet {
       width: 33.854vw;
       font-size: 1.25rem;
     }
-    @include desktop {
+    @include global.desktop {
       width: 20vw;
       margin-top: 16px;
     }
@@ -144,10 +143,10 @@
       margin-left: 0.625rem;
       font-size: 15px;
 
-      &:after{
+      &:after {
         content: '';
         height: 2px;
-        background: #239B56;
+        background: #239b56;
         position: absolute;
         left: 10px;
         right: 0;
@@ -156,11 +155,10 @@
         transform: scaleX(0);
         transform-origin: left center;
         transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
-        
       }
-      &:hover{
-        color: #239B56;
-        &:after{
+      &:hover {
+        color: #239b56;
+        &:after {
           opacity: 1;
           transform: scaleX(1);
         }
@@ -168,10 +166,12 @@
       &-link {
         position: relative;
         text-decoration: none;
-        color: $graphite;
-          
-  
-    }
+        color: global.$graphite;
+        &--active {
+          color: #239b56;
+          text-decoration: none;
+        }
+      }
     }
   }
 }

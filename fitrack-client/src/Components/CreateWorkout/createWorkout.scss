@@ -1,13 +1,13 @@
-@import "../../styles/partials/global";
+@use '../../styles/partials/global';
 .create-container {
-  @include backgroundImage;
+  @include global.backgroundImage;
   &__card {
-    @include cardStyle {
-      @include tablet {
+    @include global.cardStyle {
+      @include global.tablet {
         width: 25rem;
       }
       &:hover {
-        @include cardHoverStyle;
+        @include global.cardHoverStyle;
       }
     }
   }
@@ -39,10 +39,10 @@
   &__description,
   &__duration,
   &__date {
-    @include formInputStyle;
+    @include global.formInputStyle;
     &:hover,
     &:focus {
-      @include formInputHoverFocus;
+      @include global.formInputHoverFocus;
     }
   }
   &__button-container {
@@ -50,9 +50,9 @@
     justify-content: center;
   }
   &__button {
-    @include formButtonStyle;
+    @include global.formButtonStyle;
     &:hover {
-      @include buttonHoverStyle;
+      @include global.buttonHoverStyle;
     }
   }
   &__description {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { navigationData } from "./navigationData";
-import Logo from "../../assets/logo/stopwatch.svg";
-import "./navigation.scss";
-import burger from "../../assets/icons/burger.svg";
-import close from "../../assets/icons/close.svg";
+import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
+import { navigationData } from './navigationData';
+import Logo from '../../assets/logo/stopwatch.svg';
+import './navigation.scss';
+import burger from '../../assets/icons/burger.svg';
+import close from '../../assets/icons/close.svg';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,21 +25,21 @@ export default function Navigation() {
         <div className="nav-container__burger-container">
           <img
             className={
-              isOpen ? "nav-container__burger-hide" : "nav-container__burger"
+              isOpen ? 'nav-container__burger-hide' : 'nav-container__burger'
             }
             src={burger}
             alt=""
             onClick={() => {
               burgerStatus() &&
-                document.getElementsByClassName("nav-container__burger-hide");
+                document.getElementsByClassName('nav-container__burger-hide');
             }}
           />
         </div>
         <div
           className={
             isOpen
-              ? "nav-container__list-container"
-              : "nav-container__list-container-hide"
+              ? 'nav-container__list-container'
+              : 'nav-container__list-container-hide'
           }
         >
           <ul className="nav-container__list">
@@ -48,12 +48,11 @@ export default function Navigation() {
                 <NavLink
                   key={nav.id}
                   to={nav.url}
-                  className="nav-container__list-item-link"
-                  activeStyle={{
-                    color: `#239B56`,
-                    textShadow: `0 0 8px rgb(82,190,128)`,
-                    
-                  }}
+                  className={(navData) =>
+                    navData.isActive
+                      ? 'nav-container__list-item-link--active'
+                      : 'nav-container__list-item-link'
+                  }
                 >
                   <li
                     className="nav-container__list-item"

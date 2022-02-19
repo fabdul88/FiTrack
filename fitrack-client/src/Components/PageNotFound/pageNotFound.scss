@@ -1,6 +1,6 @@
-@import "../../styles/partials/global";
+@use '../../styles/partials/global';
 .error {
-  font-family: "MontserratR";
+  font-family: 'MontserratR';
   display: flex;
   justify-content: center;
   &__text {

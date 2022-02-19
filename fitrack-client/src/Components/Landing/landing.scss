@@ -1,6 +1,6 @@
-@import "../../styles/partials/global";
+@use '../../styles/partials/global';
 .landing-container {
-  @include backgroundImage;
+  @include global.backgroundImage;
   &__title-container {
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     letter-spacing: 7px;
     margin: 0;
     padding-top: 9.375rem;
-    color: $white;
+    color: global.$white;
     background: -webkit-linear-gradient(45deg, #eee, #333);
     -webkit-background-clip: text;
     background-clip: text;
@@ -24,18 +24,18 @@
     &:hover {
       text-shadow: 0 0px 12px rgba(255, 255, 255, 0.8);
     }
-    @include tablet {
+    @include global.tablet {
       width: 66.255vw;
       letter-spacing: 11px;
       font-size: 16.3125vw;
     }
-    @include desktop {
+    @include global.desktop {
       width: 50rem;
       font-size: 13.125rem;
     }
   }
   &__slogan {
-    font-family: "MontserratR";
+    font-family: 'MontserratR';
     letter-spacing: 1px;
     box-sizing: border-box;
     width: 79.0624vw;
@@ -46,14 +46,14 @@
     font-size: 6.25vw;
     text-align: center;
     &-span {
-      font-family: "MontserratT";
-      text-shadow: 0 0px 6px $white;
+      font-family: 'MontserratT';
+      text-shadow: 0 0px 6px global.$white;
     }
-    @include tablet {
+    @include global.tablet {
       width: 71.0624vw;
       font-size: 5.42vw;
     }
-    @include desktop {
+    @include global.desktop {
       width: 46.375rem;
       font-size: 4.3438rem;
     }
@@ -63,7 +63,7 @@
     justify-content: center;
   }
   &__button {
-    font-family: "MontserratT";
+    font-family: 'MontserratT';
     letter-spacing: 1px;
     background: linear-gradient(#eee, #333);
     display: flex;
@@ -71,22 +71,22 @@
     align-items: center;
     font-size: 1.0625rem;
     font-weight: 600;
-    color: $black;
+    color: global.$black;
     border-radius: 20px;
     border: none;
     outline: none;
     padding: 0.4375rem 1rem;
     width: 12.875rem;
     height: 2.25rem;
-    @include tablet {
+    @include global.tablet {
       width: 16.875rem;
       font-size: 1.375rem;
     }
     &:hover {
       background: transparent;
-      color: $white;
+      color: global.$white;
       border: none;
-      border-bottom: 3px solid $white;
+      border-bottom: 3px solid global.$white;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       transition: 0.1s;
