@@ -16,7 +16,7 @@ const CreateWorkout = () => {
 
   useEffect(() => {
     axios
-      .get('/users')
+      .get('/api/users')
       .then((response) => {
         // checking if there are users in the database
         if (response.data.length > 0) {
@@ -60,7 +60,7 @@ const CreateWorkout = () => {
     };
 
     axios
-      .post('/workouts/add', workout)
+      .post('/api/workouts/add', workout)
       .then((res) => {
         navigate('/workoutlist', { state: { username: name } });
         console.log(res.data);

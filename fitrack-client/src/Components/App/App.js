@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Landing from '../Landing/Landing';
 import Navigation from '../Header/Navigation';
@@ -11,12 +11,11 @@ import EditWorkout from '../EditWorkout/EditWorkout';
 import './app.scss';
 
 const App = () => {
-  const location = useLocation();
   return (
     <div className="app" style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
       <Navigation />
       <AnimatePresence exitBeforeEnter>
-        <Routes location={location} key={location.pathname}>
+        <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/workoutlist" element={<WorkoutList />} />
           ;

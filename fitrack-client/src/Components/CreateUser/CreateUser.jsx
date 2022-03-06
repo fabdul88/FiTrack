@@ -19,7 +19,7 @@ const CreateUser = () => {
     };
 
     axios
-      .post('/users/add', user)
+      .post('/api/users/add', user)
       .then((res) => {
         navigate('/createworkout', { state: user });
         console.log(res.data);

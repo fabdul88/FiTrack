@@ -17,7 +17,7 @@ const EditWorkout = () => {
 
   useEffect(() => {
     axios
-      .get(`/workouts/${params.id}`)
+      .get(`/api/workouts/${params.id}`)
       .then((res) => {
         setUsername(res.data.username);
         setDescription(res.data.description);
@@ -26,7 +26,7 @@ const EditWorkout = () => {
       })
       .catch((err) => console.log(err));
     axios
-      .get('/users')
+      .get('/api/users')
       .then((response) => {
         // checking if there are users in the database
         if (response.data.length > 0) {
@@ -60,7 +60,7 @@ const EditWorkout = () => {
     };
 
     axios
-      .post(`/workouts/update/${params.id}`, workout)
+      .post(`/api/workouts/update/${params.id}`, workout)
       .then((res) => {
         navigate({
           pathname: '/workoutlist',

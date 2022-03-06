@@ -11,7 +11,7 @@ const WorkoutList = () => {
 
   useEffect(() => {
     axios
-      .get('/workouts')
+      .get('/api/workouts')
       .then((res) => {
         setWorkouts(res.data);
       })
@@ -20,7 +20,7 @@ const WorkoutList = () => {
 
   function deleteWorkout(id) {
     axios
-      .delete(`/workouts/${id}`)
+      .delete(`/api/workouts/${id}`)
       .then((response) => console.log(response.data));
     setWorkouts(workouts.filter((element) => element._id !== id));
   }
