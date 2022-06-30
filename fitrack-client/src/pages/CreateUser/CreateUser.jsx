@@ -77,6 +77,7 @@ const CreateUser = () => {
                 type="text"
                 value={userName}
                 onChange={onChangeUsername}
+                placeholder="Ex. John Doe"
               />
             </div>
             <div className="user-container__button-container">
@@ -89,4 +90,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export { CreateUser };

@@ -3,19 +3,25 @@ let Workout = require('../models/workout.model');
 
 exports.getWorkout = (req, res) => {
   Workout.find()
-    .then((workouts) => res.json(workouts))
+    .then((workouts) => {
+      res.json(workouts);
+    })
     .catch((err) => res.status(400).json(err));
 };
 
-exports.addWorkout = (req, res) => {
-  // creating a new instance of Workout using username, description,duration and date
-  const newWorkout = new Workout(req.body);
+exports.addWorkout = async (req, res) => {
+  const { username, description, duration, date } = req.body;
 
-  // saving newExercise to mongoDB
-  newWorkout
-    .save()
-    .then(() => res.json('Added Workout'))
-    .catch((err) => res.status(400).json(err));
+  // creating a new instance of Workout using username, description,duration and date
+  const newWorkout = new Workout({ username, description, duration, date });
+
+  try {
+    // saving newExercise to mongoDB
+    await newWorkout.save();
+    res.status(201).json('Added Workout');
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
 exports.editWorkout = (req, res) => {

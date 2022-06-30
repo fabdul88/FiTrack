@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import './createWorkout.scss';
+import './editWorkout.scss';
 
-const CreateWorkout = () => {
+const EditWorkout = () => {
+  const params = useParams();
+
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const [username, setUserName] = useState('');
+  const [username, setUsername] = useState('');
   const [description, setDescription] = useState('');
   const [duration, setDuration] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -16,25 +17,28 @@ const CreateWorkout = () => {
 
   useEffect(() => {
     axios
+      .get(`/api/workouts/${params.id}`)
+      .then((res) => {
+        setUsername(res.data.username);
+        setDescription(res.data.description);
+        setDuration(res.data.duration);
+        setDate(new Date(res.data.date));
+      })
+      .catch((err) => console.log(err));
+    axios
       .get('/api/users')
       .then((response) => {
         // checking if there are users in the database
         if (response.data.length > 0) {
-          const user = location.state.username;
-          if (user) {
-            // returning each user in the array by username
-            setUsers(response.data.map((user) => user.username));
-
-            // setting the first element in the array to be the first user displayed
-            setUserName({ username: user });
-          }
+          //   // returning each user in the array by username
+          setUsers(response.data.map((user) => user.username));
         }
       })
       .catch((error) => console.log(error));
-  }, [location.state.username]);
+  }, [params.id]);
 
   function onchangeUsername(e) {
-    setUserName(e.target.value);
+    setUsername(e.target.value);
   }
   function onchangeDescription(e) {
     setDescription(e.target.value);
@@ -55,14 +59,13 @@ const CreateWorkout = () => {
       date: date,
     };
 
-    const name = {
-      username: username,
-    };
-
     axios
-      .post('/api/workouts/add', workout)
+      .patch(`/api/workouts/update/${params.id}`, workout)
       .then((res) => {
-        navigate('/workoutlist', { state: { username: name } });
+        navigate({
+          pathname: '/workoutlist',
+          state: { username: username },
+        });
         console.log(res.data);
       })
       .catch((err) => console.log(err));
@@ -70,19 +73,14 @@ const CreateWorkout = () => {
 
   // Framer motion animations
   const cardVariants = {
-    initial: {
-      opacity: 0,
-      x: '-500vw',
-      scale: 0,
-    },
     in: {
       opacity: 1,
-      x: 0,
+      y: 0,
       scale: 1,
     },
     out: {
       opacity: 0,
-      x: '500vw',
+      y: '-500vh',
       scale: 0,
     },
   };
@@ -94,30 +92,26 @@ const CreateWorkout = () => {
   };
 
   return (
-    <div className="create-container">
+    <div className="edit-container">
       <motion.div
-        className="create-container__card"
-        initial="initial"
+        className="edit-container__card"
+        initial="out"
         animate="in"
         exit="out"
         variants={cardVariants}
         transition={cardTransition}
       >
-        <div className="create-container__title-container">
-          <h2 className="create-container__title">CREATE WORKOUT</h2>
+        <div className="edit-container__title-container">
+          <h2 className="edit-container__title">EDIT WORKOUT</h2>
         </div>
-        <div className="create-container__form-container">
-          <form
-            onSubmit={onSubmit}
-            className="create-container__form"
-            action=""
-          >
-            <div className="create-container__username-container">
-              <label className="create-container__username-label" htmlFor="">
+        <div className="edit-container__form-container">
+          <form onSubmit={onSubmit} className="edit-container__form" action="">
+            <div className="edit-container__username-container">
+              <label className="edit-container__username-label" htmlFor="">
                 USERNAME
               </label>
               <select
-                className="create-container__username"
+                className="edit-container__username"
                 value={username}
                 onChange={onchangeUsername}
               >
@@ -130,22 +124,23 @@ const CreateWorkout = () => {
                 })}
               </select>
             </div>
-            <div className="create-container__description-container">
-              <label className="create-container__description-label" htmlFor="">
+            <div className="edit-container__description-container">
+              <label className="edit-container__description-label" htmlFor="">
                 DESCRIPTION
               </label>
               <textarea
-                className="create-container__description"
+                className="edit-container__description"
                 value={description}
                 onChange={onchangeDescription}
+                placeholder="Ex. Walk, Stretch, Weight lift..."
               />
             </div>
-            <div className="create-container__duration-container">
-              <label className="create-container__duration-label" htmlFor="">
+            <div className="edit-container__duration-container">
+              <label className="edit-container__duration-label" htmlFor="">
                 DURATION (in Minutes)
               </label>
               <input
-                className="create-container__duration"
+                className="edit-container__duration"
                 type="number"
                 min="0"
                 max="59"
@@ -153,19 +148,19 @@ const CreateWorkout = () => {
                 onChange={onchangeDuration}
               />
             </div>
-            <div className="create-container__date-container">
-              <label className="create-container__date-label" htmlFor="">
+            <div className="edit-container__date-container">
+              <label className="edit-container__date-label" htmlFor="">
                 DATE
               </label>
               <input
-                className="create-container__date"
+                className="edit-container__date"
                 type="date"
                 selected={date}
                 onChange={onchangeDate}
               />
             </div>
-            <div className="create-container__button-container">
-              <button className="create-container__button">LET'S GO !</button>
+            <div className="edit-container__button-container">
+              <button className="edit-container__button">UPDATE !</button>
             </div>
           </form>
         </div>
@@ -174,4 +169,4 @@ const CreateWorkout = () => {
   );
 };
 
-export default CreateWorkout;
+export { EditWorkout };

@@ -1,64 +1,63 @@
 // Montserrat
 @font-face {
-  font-family: "MontserratT";
-  src: url("../../assets/font/montserrat/Montserrat-Thin.ttf")
-    format("TrueType");
+  font-family: 'MontserratT';
+  src: url('../../assets/font/montserrat/Montserrat-Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MontserratTI";
-  src: url("../../assets/font/montserrat/Montserrat-ThinItalic.ttf")
-    format("TrueType");
+  font-family: 'MontserratTI';
+  src: url('../../assets/font/montserrat/Montserrat-ThinItalic.woff2')
+    format('woff2');
   font-weight: 100;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "MontserratR";
-  src: url("../../assets/font/montserrat/Montserrat-Regular.ttf")
-    format("TrueType");
+  font-family: 'MontserratR';
+  src: url('../../assets/font/montserrat/Montserrat-Regular.woff2')
+    format('woff2');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MontserratRI";
-  src: url("../../assets/font/montserrat/Montserrat-RegularItalic.ttf")
-    format("TrueType");
+  font-family: 'MontserratRI';
+  src: url('../../assets/font/montserrat/Montserrat-RegularItalic.woff2')
+    format('woff2');
   font-weight: 400;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "MontserratSB";
-  src: url("../../assets/font/montserrat/Montserrat-SemiBold.ttf")
-    format("TrueType");
+  font-family: 'MontserratSB';
+  src: url('../../assets/font/montserrat/Montserrat-SemiBold.woff2')
+    format('woff2');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MontserratSBI";
-  src: url("../../assets/font/montserrat/Montserrat-SemiBoldItalic.ttf")
-    format("TrueType");
+  font-family: 'MontserratSBI';
+  src: url('../../assets/font/montserrat/Montserrat-SemiBoldItalic.woff2')
+    format('woff2');
   font-weight: 600;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "MontserratB";
-  src: url("../../assets/font/montserrat/Montserrat-Black.ttf")
-    format("TrueType");
+  font-family: 'MontserratB';
+  src: url('../../assets/font/montserrat/Montserrat-Black.woff2')
+    format('woff2');
   font-weight: 900;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MontserratBI";
-  src: url("../../assets/font/montserrat/Montserrat-BlackItalic.ttf")
-    format("TrueType");
+  font-family: 'MontserratBI';
+  src: url('../../assets/font/montserrat/Montserrat-BlackItalic.woff2')
+    format('woff2');
   font-weight: 900;
   font-style: italic;
 }

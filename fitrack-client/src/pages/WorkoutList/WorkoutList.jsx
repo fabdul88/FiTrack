@@ -235,4 +235,4 @@ const WorkoutList = () => {
   );
 };
 
-export default WorkoutList;
+export { WorkoutList };

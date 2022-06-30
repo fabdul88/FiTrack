@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import "./landing.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import './landing.scss';
 
-export default function Hero() {
+const Landing = () => {
   const descriptionVariants = {
     in: {
       opacity: 1,
@@ -12,7 +12,7 @@ export default function Hero() {
     },
     out: {
       opacity: 0,
-      y: "-100vh",
+      y: '-100vh',
       scale: 0,
     },
   };
@@ -29,11 +29,11 @@ export default function Hero() {
     },
     out: {
       opacity: 0,
-      x: "-500vw",
+      x: '-500vw',
     },
   };
   const buttonTransition = {
-    type: "spring",
+    type: 'spring',
     stiffness: 50,
     duration: 1,
   };
@@ -49,13 +49,14 @@ export default function Hero() {
           variants={descriptionVariants}
           transition={descriptionTransition}
         >
-          Helping you achieve{" "}
-          <span className="landing-container__slogan-span">fitness goals</span>{" "}
+          Helping you achieve{' '}
+          <span className="landing-container__slogan-span">fitness goals</span>{' '}
           that you define
         </motion.p>
         <div className="landing-container__button-container">
           <Link to="/createuser" className="landing-container__button-link">
             <motion.button
+              data-testid="landing programmatic button"
               className="landing-container__button"
               initial="out"
               animate="in"
@@ -63,7 +64,7 @@ export default function Hero() {
               variants={buttonVariants}
               transition={buttonTransition}
               whileHover={{
-                textShadow: "0 0 8px rgb(255,255,255)",
+                textShadow: '0 0 8px rgb(255,255,255)',
               }}
             >
               GET STARTED
@@ -73,4 +74,5 @@ export default function Hero() {
       </div>
     </div>
   );
-}
+};
+export { Landing };
