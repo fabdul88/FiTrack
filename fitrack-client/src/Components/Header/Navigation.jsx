@@ -10,7 +10,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   const burgerStatus = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prevState) => !prevState);
   };
 
   return (
@@ -30,8 +30,7 @@ export default function Navigation() {
             src={burger}
             alt=""
             onClick={() => {
-              burgerStatus() &&
-                document.getElementsByClassName('nav-container__burger-hide');
+              burgerStatus();
             }}
           />
         </div>

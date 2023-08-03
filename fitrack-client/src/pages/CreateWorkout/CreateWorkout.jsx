@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { date2str } from '../../helpers/date2srt';
+import toast, { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import './createWorkout.scss';
@@ -8,64 +10,79 @@ const CreateWorkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [username, setUserName] = useState('');
-  const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState(0);
-  const [date, setDate] = useState(new Date());
-  const [users, setUsers] = useState([]);
+  const ACTION = {
+    ADD_WORKOUT_DATA: 'addWorkoutData',
+    GET_USERNAME: 'getUsername',
+  };
 
-  useEffect(() => {
-    axios
-      .get('/api/users')
-      .then((response) => {
-        // checking if there are users in the database
-        if (response.data.length > 0) {
-          const user = location.state.username;
-          if (user) {
-            // returning each user in the array by username
-            setUsers(response.data.map((user) => user.username));
+  const initialWorkoutState = {
+    username: '' || location?.state?.username,
+    description: '',
+    duration: 0,
+    date: date2str(new Date(), 'yyyy-MM-dd'),
+  };
 
-            // setting the first element in the array to be the first user displayed
-            setUserName({ username: user });
-          }
-        }
-      })
-      .catch((error) => console.log(error));
-  }, [location.state.username]);
+  function reducer(state, action) {
+    switch (action.type) {
+      case ACTION.ADD_WORKOUT_DATA:
+        return { ...state, [action.field]: action.value };
+      default:
+        return { ...initialWorkoutState };
+    }
+  }
 
-  function onchangeUsername(e) {
-    setUserName(e.target.value);
-  }
-  function onchangeDescription(e) {
-    setDescription(e.target.value);
-  }
-  function onchangeDuration(e) {
-    setDuration(e.target.value);
-  }
-  function onchangeDate(e) {
-    setDate(e.target.value);
-  }
+  const [state, dispatch] = useReducer(reducer, initialWorkoutState);
+
+  const updateInputValue = (event) => {
+    dispatch({
+      type: ACTION.ADD_WORKOUT_DATA,
+      field: event.target.name,
+      value: event.target.value,
+    });
+  };
 
   function onSubmit(e) {
     e.preventDefault();
     const workout = {
-      username: username,
-      description: description,
-      duration: duration,
-      date: date,
+      ...state,
     };
 
     const name = {
-      username: username,
+      username: state.username,
     };
 
-    axios
+    const addWorkoutPromise = axios
       .post('/api/workouts/add', workout)
       .then((res) => {
         navigate('/workoutlist', { state: { username: name } });
         console.log(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw new Error(err);
+      });
+
+    toast.promise(
+      addWorkoutPromise,
+      {
+        loading: 'Processing',
+        error: 'error adding a workout',
+        success: 'successfully added a workout ',
+      },
+      {
+        style: {
+          minWidth: '250px',
+          background: 'rgba(255,255,255,0.4)',
+          backdropFilter: 'blur(6px)',
+          color: '#000000',
+        },
+        success: {
+          duration: 5000,
+        },
+        error: {
+          duration: 5000,
+        },
+      }
+    );
   }
 
   // Framer motion animations
@@ -95,6 +112,7 @@ const CreateWorkout = () => {
 
   return (
     <div className="create-container">
+      <Toaster position="bottom-right" />
       <motion.div
         className="create-container__card"
         initial="initial"
@@ -113,60 +131,74 @@ const CreateWorkout = () => {
             action=""
           >
             <div className="create-container__username-container">
-              <label className="create-container__username-label" htmlFor="">
+              <label
+                className="create-container__username-label"
+                htmlFor="username"
+              >
                 USERNAME
               </label>
-              <select
+              <input
+                type="text"
+                name="userName"
+                id="username"
                 className="create-container__username"
-                value={username}
-                onChange={onchangeUsername}
-              >
-                {users.map((user) => {
-                  return (
-                    <option key={user} value={user}>
-                      {user}
-                    </option>
-                  );
-                })}
-              </select>
+                value={state.username}
+                disabled={state.username.length > 0 ? true : false}
+                onChange={(event) => updateInputValue(event)}
+              />
             </div>
             <div className="create-container__description-container">
-              <label className="create-container__description-label" htmlFor="">
+              <label
+                className="create-container__description-label"
+                htmlFor="description"
+              >
                 DESCRIPTION
               </label>
               <textarea
+                id="description"
+                name="description"
                 className="create-container__description"
-                value={description}
-                onChange={onchangeDescription}
+                value={state.description}
+                onChange={(event) => updateInputValue(event)}
                 placeholder="Ex. Walk, Stretch, Weight lift..."
               />
             </div>
             <div className="create-container__duration-container">
-              <label className="create-container__duration-label" htmlFor="">
-                DURATION (in Minutes)
+              <label
+                className="create-container__duration-label"
+                htmlFor="duration"
+              >
+                DURATION (In Mins)
               </label>
               <input
+                id="duration"
+                name="duration"
                 className="create-container__duration"
                 type="number"
                 min="0"
-                max="59"
-                value={duration}
-                onChange={onchangeDuration}
+                value={state.duration}
+                onChange={(event) => updateInputValue(event)}
               />
             </div>
             <div className="create-container__date-container">
-              <label className="create-container__date-label" htmlFor="">
+              <label className="create-container__date-label" htmlFor="date">
                 DATE
               </label>
               <input
+                id="date"
+                name="date"
                 className="create-container__date"
                 type="date"
-                selected={date}
-                onChange={onchangeDate}
+                selected={state.date}
+                value={state.date}
+                min={date2str(new Date(), 'yyyy-MM-dd')}
+                onChange={(event) => updateInputValue(event)}
               />
             </div>
             <div className="create-container__button-container">
-              <button className="create-container__button">LET'S GO !</button>
+              <button className="create-container__button" name="let's go">
+                LET'S GO !
+              </button>
             </div>
           </form>
         </div>

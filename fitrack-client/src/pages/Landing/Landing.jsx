@@ -1,9 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import './landing.scss';
 
 const Landing = () => {
+  // // wger workout API
+  // useEffect(() => {
+  //   fetch('https://wger.de/api/v2/workout/', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Token af5ebdb8746c476dc68a892e28618677e3c73195',
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //     });
+  // }, []);
+
+  const navigate = useNavigate();
   const descriptionVariants = {
     in: {
       opacity: 1,
@@ -54,22 +72,24 @@ const Landing = () => {
           that you define
         </motion.p>
         <div className="landing-container__button-container">
-          <Link to="/createuser" className="landing-container__button-link">
-            <motion.button
-              data-testid="landing programmatic button"
-              className="landing-container__button"
-              initial="out"
-              animate="in"
-              exit="out"
-              variants={buttonVariants}
-              transition={buttonTransition}
-              whileHover={{
-                textShadow: '0 0 8px rgb(255,255,255)',
-              }}
-            >
-              GET STARTED
-            </motion.button>
-          </Link>
+          <motion.button
+            className="landing-container__button"
+            initial="out"
+            animate="in"
+            exit="out"
+            name="GET STARTED"
+            variants={buttonVariants}
+            transition={buttonTransition}
+            whileHover={{
+              textShadow: '0 0 8px rgb(255,255,255)',
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/createuser');
+            }}
+          >
+            GET STARTED
+          </motion.button>
         </div>
       </div>
     </div>

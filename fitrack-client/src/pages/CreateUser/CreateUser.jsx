@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import './createUser.scss';
@@ -18,13 +19,38 @@ const CreateUser = () => {
       username: userName,
     };
 
-    axios
+    const createUserPromise = axios
       .post('/api/users/add', user)
       .then((res) => {
         navigate('/createworkout', { state: user });
-        console.log(res.data);
+        return res.data;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw new Error(err);
+      });
+
+    toast.promise(
+      createUserPromise,
+      {
+        loading: 'Processing',
+        error: 'error adding a user',
+        success: 'successfully added a username ',
+      },
+      {
+        style: {
+          minWidth: '250px',
+          background: 'rgba(255,255,255,0.4)',
+          backdropFilter: 'blur(6px)',
+          color: '#000000',
+        },
+        success: {
+          duration: 5000,
+        },
+        error: {
+          duration: 5000,
+        },
+      }
+    );
   }
 
   // Framer motion animations
@@ -54,6 +80,7 @@ const CreateUser = () => {
 
   return (
     <div className="user-container">
+      <Toaster position="bottom-right" />
       <motion.div
         className="user-container__card"
         initial="initial"
@@ -67,12 +94,20 @@ const CreateUser = () => {
         </div>
         <div className="user-container__form-container">
           <div className="user-container__image"></div>
-          <form className="user-container__form" onSubmit={handleSubmit}>
+          <form
+            className="user-container__form"
+            onSubmit={(e) => handleSubmit(e)}
+          >
             <div className="user-container__username-container">
-              <label className="user-container__username-label" htmlFor="">
+              <label
+                className="user-container__username-label"
+                htmlFor="username"
+              >
                 USERNAME
               </label>
               <input
+                id="username"
+                name="userName"
                 className="user-container__user"
                 type="text"
                 value={userName}
@@ -81,7 +116,9 @@ const CreateUser = () => {
               />
             </div>
             <div className="user-container__button-container">
-              <button className="user-container__button">CREATE</button>
+              <button className="user-container__button" name="create">
+                CREATE
+              </button>
             </div>
           </form>
         </div>

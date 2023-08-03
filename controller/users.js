@@ -1,8 +1,8 @@
 // requiring User mongoose model
-const User = require('../models/user.model');
+const UserModel = require('../models/user.model');
 
 exports.getUsers = (req, res) => {
-  User.find()
+  UserModel.find()
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json(err));
 };
@@ -10,8 +10,8 @@ exports.getUsers = (req, res) => {
 exports.addUsers = async (req, res) => {
   const { username } = req.body;
 
-  // creating a new instance of User using username
-  const newUser = new User({ username });
+  // creating a new instance of UserModel using username
+  const newUser = new UserModel({ username });
 
   try {
     // saving newUSer to mongoDB

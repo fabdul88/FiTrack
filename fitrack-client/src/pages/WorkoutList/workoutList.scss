@@ -1,7 +1,10 @@
 @use '../../styles/partials/global';
 .main-list {
+  position: relative;
   @include global.backgroundImage;
   &__card {
+    height: calc(100vh - 310px);
+    overflow-y: scroll;
     @include global.cardStyle {
       align-items: center;
       @include global.tablet {
@@ -16,6 +19,8 @@
     }
   }
   &__title-container {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: center;
   }
@@ -25,6 +30,8 @@
     margin-bottom: 0;
   }
   &__category-container {
+    position: sticky;
+    top: 48px;
     width: 100%;
     display: flex;
     justify-content: space-between;

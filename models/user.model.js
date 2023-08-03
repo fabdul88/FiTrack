@@ -1,16 +1,28 @@
 // Referencing Mongoose
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 // Defining a Schema and the structure of the document, default values, validators.
 const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
-      unique: true,
+      lowercase: true,
+      required: [true, 'cant be blank'],
+      unique: false,
+      match: [/[a-zA-Z0-9]/, 'is invalid'],
       trim: true,
       minlength: 3,
     },
+    email: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Auth',
+    },
+    workouts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Workout',
+      },
+    ],
   },
   {
     timestamps: true,
@@ -18,4 +30,4 @@ const userSchema = new mongoose.Schema(
 );
 
 // Exporting model
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

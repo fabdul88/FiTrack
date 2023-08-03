@@ -1,0 +1,93 @@
+@use '../../styles/partials/global';
+
+.modal {
+  position: absolute;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.4);
+    width: 80%;
+    max-width: 550px;
+
+    height: 300px;
+    padding: 15px;
+    &:hover {
+      box-shadow: 0 20px 50px rgba(255, 255, 255, 0.7);
+      transition: all 0.5s;
+    }
+    &-title {
+      font-family: 'MontserratSB';
+      letter-spacing: 2px;
+      font-size: 1.4375rem;
+      text-align: center;
+      &-span {
+        color: #226f20;
+      }
+    }
+    &-text {
+      font-family: 'MontserratR';
+      letter-spacing: 1px;
+      color: #000000;
+      text-align: center;
+    }
+  }
+  &__close-icon-container {
+    position: relative;
+    right: -47%;
+  }
+  &__close-icon {
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-family: 'MontserratR';
+    background: #000000;
+    color: #ffffff;
+  }
+  &__button-container {
+    margin: 30px 0 0 0;
+    width: 60%;
+    &-wrapper {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+  }
+  &__button-cancel,
+  &__button-delete {
+    @include global.formButtonStyle;
+    &:hover {
+      @include global.buttonHoverStyle;
+    }
+    margin: 0;
+    // border: none;
+    // padding: 5px;
+    // width: 100px;
+    // height: 30px;
+    // border-radius: 30%;
+  }
+  &__button-delete {
+    margin: 0 15px 0 0;
+    background: #ac3030;
+    color: white;
+  }
+  &__button-cancel {
+    background: black;
+    color: #ffffff;
+  }
+}

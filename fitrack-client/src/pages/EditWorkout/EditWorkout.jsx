@@ -1,74 +1,110 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { date2str } from '../../helpers/date2srt';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import './editWorkout.scss';
 
 const EditWorkout = () => {
   const params = useParams();
-
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('');
-  const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState(0);
-  const [date, setDate] = useState(new Date());
-  const [users, setUsers] = useState([]);
+  const ACTION = {
+    EDIT_WORKOUT_DATA: 'editWorkoutData',
+    SET_INPUTS_TO_FETCHED_DATA: 'getFetchedData',
+  };
+
+  const initialWorkoutState = {
+    username: '',
+    description: '',
+    duration: 0,
+    date: date2str(new Date(), 'yyyy-MM-dd'),
+  };
+
+  function reducer(state, action) {
+    switch (action.type) {
+      case ACTION.EDIT_WORKOUT_DATA:
+        return { ...state, [action.field]: action.value };
+      case ACTION.SET_INPUTS_TO_FETCHED_DATA:
+        return action.payload;
+      default:
+        return { ...initialWorkoutState };
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialWorkoutState);
 
   useEffect(() => {
     axios
       .get(`/api/workouts/${params.id}`)
       .then((res) => {
-        setUsername(res.data.username);
-        setDescription(res.data.description);
-        setDuration(res.data.duration);
-        setDate(new Date(res.data.date));
+        dispatch({
+          type: ACTION.SET_INPUTS_TO_FETCHED_DATA,
+          payload: {
+            ...initialWorkoutState,
+            username: res?.data.username,
+            description: res?.data.description,
+            duration: res?.data.duration,
+            date: date2str(new Date(res?.data.date), 'yyyy-MM-dd'),
+          },
+        });
       })
       .catch((err) => console.log(err));
-    axios
-      .get('/api/users')
-      .then((response) => {
-        // checking if there are users in the database
-        if (response.data.length > 0) {
-          //   // returning each user in the array by username
-          setUsers(response.data.map((user) => user.username));
-        }
-      })
-      .catch((error) => console.log(error));
   }, [params.id]);
 
-  function onchangeUsername(e) {
-    setUsername(e.target.value);
-  }
-  function onchangeDescription(e) {
-    setDescription(e.target.value);
-  }
-  function onchangeDuration(e) {
-    setDuration(e.target.value);
-  }
-  function onchangeDate(e) {
-    setDate(e.target.value);
-  }
+  const updateInputValue = (event) => {
+    dispatch({
+      type: ACTION.EDIT_WORKOUT_DATA,
+      field: event.target.name,
+      value: event.target.value,
+    });
+  };
 
   function onSubmit(e) {
     e.preventDefault();
     const workout = {
-      username: username,
-      description: description,
-      duration: duration,
-      date: date,
+      username: state.username,
+      description: state.description,
+      duration: state.duration,
+      date: state.date,
     };
 
-    axios
+    const editWorkoutPromise = axios
       .patch(`/api/workouts/update/${params.id}`, workout)
       .then((res) => {
         navigate({
           pathname: '/workoutlist',
-          state: { username: username },
+          state: { username: state.username },
         });
-        console.log(res.data);
+        return res.data;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw new Error(err);
+      });
+
+    toast.promise(
+      editWorkoutPromise,
+      {
+        loading: 'Processing',
+        error: 'error editing a workout',
+        success: 'Successfully edited a workout',
+      },
+      {
+        style: {
+          minWidth: '250px',
+          background: 'rgba(255,255,255,0.4)',
+          backdropFilter: 'blur(6px)',
+          color: '#000000',
+        },
+        success: {
+          duration: 5000,
+        },
+        error: {
+          duration: 5000,
+        },
+      }
+    );
   }
 
   // Framer motion animations
@@ -93,6 +129,7 @@ const EditWorkout = () => {
 
   return (
     <div className="edit-container">
+      <Toaster position="bottom-right" />
       <motion.div
         className="edit-container__card"
         initial="out"
@@ -105,58 +142,70 @@ const EditWorkout = () => {
           <h2 className="edit-container__title">EDIT WORKOUT</h2>
         </div>
         <div className="edit-container__form-container">
-          <form onSubmit={onSubmit} className="edit-container__form" action="">
+          <form onSubmit={onSubmit} className="edit-container__form">
             <div className="edit-container__username-container">
-              <label className="edit-container__username-label" htmlFor="">
+              <label
+                className="edit-container__username-label"
+                htmlFor="username"
+              >
                 USERNAME
               </label>
-              <select
+              <input
+                type="text"
+                name="username"
+                value={state.username}
+                id="username"
                 className="edit-container__username"
-                value={username}
-                onChange={onchangeUsername}
-              >
-                {users.map((user) => {
-                  return (
-                    <option key={user} value={user}>
-                      {user}
-                    </option>
-                  );
-                })}
-              </select>
+                disabled={state.username.length > 0 ? true : false}
+                onChange={(event) => updateInputValue(event)}
+              />
             </div>
             <div className="edit-container__description-container">
-              <label className="edit-container__description-label" htmlFor="">
+              <label
+                className="edit-container__description-label"
+                htmlFor="description"
+              >
                 DESCRIPTION
               </label>
               <textarea
+                id="description"
                 className="edit-container__description"
-                value={description}
-                onChange={onchangeDescription}
+                name="description"
+                value={state.description}
+                onChange={(event) => updateInputValue(event)}
                 placeholder="Ex. Walk, Stretch, Weight lift..."
               />
             </div>
             <div className="edit-container__duration-container">
-              <label className="edit-container__duration-label" htmlFor="">
-                DURATION (in Minutes)
+              <label
+                className="edit-container__duration-label"
+                htmlFor="duration"
+              >
+                DURATION (In Mins)
               </label>
               <input
+                id="duration"
                 className="edit-container__duration"
+                name="duration"
                 type="number"
                 min="0"
-                max="59"
-                value={duration}
-                onChange={onchangeDuration}
+                value={state.duration}
+                onChange={(event) => updateInputValue(event)}
               />
             </div>
             <div className="edit-container__date-container">
-              <label className="edit-container__date-label" htmlFor="">
+              <label className="edit-container__date-label" htmlFor="date">
                 DATE
               </label>
               <input
+                id="date"
                 className="edit-container__date"
+                name="date"
                 type="date"
-                selected={date}
-                onChange={onchangeDate}
+                selected={state.date}
+                value={state.date}
+                min={date2str(new Date(), 'yyyy-MM-dd')}
+                onChange={(event) => updateInputValue(event)}
               />
             </div>
             <div className="edit-container__button-container">

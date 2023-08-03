@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navigation from '../Components/Header/Navigation';
 
@@ -36,12 +36,13 @@ const PageNotFound = lazy(() =>
 );
 
 const App = () => {
+  const location = useLocation();
   return (
     <div className="app" style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
       <Navigation />
       <AnimatePresence exitBeforeEnter>
         <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
+          <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Landing />} />
             <Route path="/workoutlist" element={<WorkoutList />} />
             ;
@@ -49,7 +50,8 @@ const App = () => {
             ;
             <Route path="/createuser" element={<CreateUser />} />
             ;
-            <Route path="/edit/:id" element={<EditWorkout />} />;
+            <Route path="/edit/:id" element={<EditWorkout />} />
+            ;
             <Route path="*" element={<PageNotFound />} />;
           </Routes>
         </Suspense>

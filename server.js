@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const path = require('path');
 const cors = require('cors');
 
 const app = express();
@@ -23,12 +24,14 @@ app.use('/api/workouts', workoutsRouter);
 app.use('/api/users', usersRouter);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('fitrack-client/build'));
+  app.use(express.static(path.resolve(__dirname, 'fitrack-client', 'build')));
 
-  const path = require('path');
   app.get('*', (req, res) => {
     res.sendFile(
-      path.resolve(_dirname, 'fitrack-client', 'build', 'index.html')
+      path.resolve(_dirname, 'fitrack-client', 'build', 'index.html'),
+      function (err) {
+        res.status(500).send(err);
+      }
     );
   });
 }
