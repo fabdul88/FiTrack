@@ -8,15 +8,18 @@ const Input = ({
   type,
   value,
   onChange,
+  name,
+  htmlFor,
 }) => {
   return (
     <div className={wrapperClassName}>
-      <label className={labelClassName} htmlFor="">
+      <label className={labelClassName} htmlFor={htmlFor}>
         {labelName}
       </label>
       <input
         className={inputClassName}
         type={type}
+        name={name}
         value={value}
         onChange={onChange}
       />
