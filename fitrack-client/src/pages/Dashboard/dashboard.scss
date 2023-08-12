@@ -1,0 +1,57 @@
+@use '../../styles/partials/global';
+.dashboard {
+  height: 100vh;
+  // background: rgba(0, 0, 0, 0.1);
+  @include global.backgroundImage;
+  &__title {
+    padding-top: 100px;
+    margin: 0;
+    color: #d3c5c5;
+  }
+  &__parent-section {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    @include global.tablet {
+      flex-direction: row;
+    }
+  }
+  &__middle-section {
+    flex: 0.8;
+  }
+  &__right-section {
+    flex: 0.2;
+    height: 80vh;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    backdrop-filter: blur(6px);
+    margin: 0 15px 0 0;
+  }
+  &__top-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include global.tablet {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+  &__card-right,
+  &__card-center,
+  &__card-left {
+    height: 250px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    margin: 5px 0;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    backdrop-filter: blur(6px);
+    @include global.tablet {
+      width: 30%;
+      margin: 0 5px;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { date2str } from '../../helpers/date2srt';
 import toast, { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
@@ -7,6 +8,9 @@ import axios from 'axios';
 import './createWorkout.scss';
 
 const CreateWorkout = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,7 +20,8 @@ const CreateWorkout = () => {
   };
 
   const initialWorkoutState = {
-    username: '' || location?.state?.username,
+    // username: '' || location?.state?.username,
+    username: '' || userInfo?.data?.username,
     description: '',
     duration: 0,
     date: date2str(new Date(), 'yyyy-MM-dd'),
@@ -46,6 +51,8 @@ const CreateWorkout = () => {
     const workout = {
       ...state,
     };
+
+    console.log('ADD WORKOUT>>>>', workout);
 
     const name = {
       username: state.username,
@@ -142,9 +149,11 @@ const CreateWorkout = () => {
                 name="userName"
                 id="username"
                 className="create-container__username"
-                value={state.username}
-                disabled={state.username.length > 0 ? true : false}
-                onChange={(event) => updateInputValue(event)}
+                value={state?.username}
+                // value={userInfo?.data?.username}
+                // disabled={state?.username?.length > 0 ? true : false}
+                disabled={userInfo?.data?.username?.length > 0 ? true : false}
+                // onChange={(event) => updateInputValue(event)}
               />
             </div>
             <div className="create-container__description-container">

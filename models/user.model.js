@@ -13,9 +13,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 3,
     },
-    email: {
+    userProfile: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Auth',
+      required: [true, 'cant be blank'],
     },
     workouts: [
       {

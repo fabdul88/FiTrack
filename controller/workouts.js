@@ -2,21 +2,47 @@
 let WorkoutModel = require('../models/workout.model');
 let UserModel = require('../models/user.model');
 
-exports.getWorkout = (req, res) => {
-  WorkoutModel.find()
-    .sort({ createdAt: 'desc' })
-    .then((workouts) => {
-      res.json(workouts);
-    })
-    .catch((err) => res.status(400).json(err));
+exports.getWorkout = async (req, res) => {
+  const { _id } = req.user;
+  console.log(req.user);
+  try {
+    const userWorkouts = await UserModel.findOne({
+      userProfile: _id,
+    }).populate({
+      path: 'workouts',
+      options: { sort: { createdAt: -1 } },
+    });
+
+    res.status(200).json(userWorkouts);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+
+  // WorkoutModel.find()
+  //   .sort({ createdAt: 'desc' })
+  //   .then((workouts) => {
+  //     // if (workouts?.userId === currentUserId) {
+  //     res.json(workouts);
+  //     // }
+  //   })
+  // UserModel.aggregate([{ $match: { userProfile: currentUserId } }])
+  //   .sort({ createdAt: 'desc' })
+  //   .then((workouts) => {
+  //     console.log('backend----------------', workouts);
+  //     res.send(workouts);
+  //   })
+  // .catch((err) => res.status(400).json(err));
 };
 
 exports.addWorkout = async (req, res) => {
+  console.log('ADD WORKOUT TEST>>>', req.body);
+  // current user
+  const { _id } = req.user;
   const { username, description, duration, date } = req.body;
 
   try {
     // Find the username POSTED in the user collection
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ userProfile: _id });
 
     // creating a new instance of the WorkoutModel using the destructured form data. Here we also add the username _id, to reference the user document.
     const newWorkout = new WorkoutModel({
@@ -25,6 +51,7 @@ exports.addWorkout = async (req, res) => {
       duration,
       date,
       userId: user._id,
+      currentUser: _id,
     });
 
     // save newWorkout to mongoDB
@@ -57,7 +84,10 @@ exports.addWorkout = async (req, res) => {
         throw new Error('FAILED TO FIND BY ID AND UPDATE >>>>', err);
       });
 
-    res.status(201).json('Added a new workout, and associated it to the user');
+    res.status(201).json({
+      message: 'Added a new workout, and associated it to the user',
+      data: req.body,
+    });
   } catch (error) {
     throw new Error('FAILED TO ADD A WORKOUT >>>> ', error);
   }
@@ -71,13 +101,17 @@ exports.editWorkout = (req, res) => {
 };
 
 exports.updateWorkout = (req, res) => {
+  // current user
+  const { _id } = req.user;
   // Editing / updating a user workout
   WorkoutModel.findById(req.params.id)
     .then((workout) => {
+      console.log('frontend edit', req.body);
       workout.username = req.body.username;
       workout.description = req.body.description;
       workout.duration = Number(req.body.duration);
       workout.date = Date.parse(req.body.date);
+      workout.currentUser = _id;
 
       workout
         .save()

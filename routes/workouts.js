@@ -1,12 +1,13 @@
 // Express Router
 const router = require('express').Router();
+const protect = require('../middleware/authMiddleware');
 
 const workoutsController = require('../controller/workouts');
 
-router.get('/', workoutsController.getWorkout);
-router.post('/add', workoutsController.addWorkout);
-router.get('/:id', workoutsController.editWorkout);
-router.patch('/update/:id', workoutsController.updateWorkout);
-router.delete('/:id', workoutsController.deleteWorkout);
+router.get('/', protect, workoutsController.getWorkout);
+router.post('/add', protect, workoutsController.addWorkout);
+router.get('/:id', protect, workoutsController.editWorkout);
+router.patch('/update/:id', protect, workoutsController.updateWorkout);
+router.delete('/:id', protect, workoutsController.deleteWorkout);
 
 module.exports = router;

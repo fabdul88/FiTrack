@@ -21,7 +21,7 @@ const WorkoutList = () => {
     axios
       .get('/api/workouts')
       .then((res) => {
-        setWorkouts(res.data);
+        setWorkouts(res.data.workouts);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -130,160 +130,166 @@ const WorkoutList = () => {
           <hr className="main-list__category-hr main-list__hide-tabdesk" />
         </div>
 
-        {workouts.map((user) => {
-          return (
-            <div key={user._id}>
-              {/* mobile and tablet Workout List */}
-              <motion.div
-                className="main-list__result-container-mobile main-list__hide-mobile"
-                whileHover={{
-                  scale: 1.02,
-                }}
-              >
-                <div className="main-list__top-section-mobile">
-                  <div className="main-list__username-container-mobile">
-                    <h4 className="main-list__username-label-mobile">
-                      USERNAME
-                    </h4>
-                    <p className="main-list__username-mobile main-list__hide-mobile">
+        {workouts.length === 0 ? (
+          <p style={{ fontFamily: 'MontserratSB' }}>
+            No workouts added , try adding a workout
+          </p>
+        ) : (
+          workouts.map((user) => {
+            return (
+              <div key={user._id}>
+                {/* mobile and tablet Workout List */}
+                <motion.div
+                  className="main-list__result-container-mobile main-list__hide-mobile"
+                  // whileHover={{
+                  //   scale: 1.02,
+                  // }}
+                >
+                  <div className="main-list__top-section-mobile">
+                    <div className="main-list__username-container-mobile">
+                      <h4 className="main-list__username-label-mobile">
+                        USERNAME
+                      </h4>
+                      <p className="main-list__username-mobile main-list__hide-mobile">
+                        {user.username}
+                      </p>
+                    </div>
+                    <div className="main-list__date-container-mobile">
+                      <h4 className="main-list__date-label-mobile">DATE</h4>
+                      <p className="main-list__date-mobile main-list__hide-mobile">
+                        {user.date.substring(0, 10)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="main-list__bottom-section-mobile">
+                    <div className="main-list__description-container-mobile">
+                      <h4 className="main-list__description-label-mobile">
+                        DESCRIPTION
+                      </h4>
+                      <p className="main-list__description-mobile main-list__hide-mobile">
+                        {user.description}
+                      </p>
+                    </div>
+                    <div className="main-list__action-container-mobile">
+                      <h4 className="main-list__action-label-mobile">ACTION</h4>
+                      <div>
+                        <Link to={'/edit/' + user._id}>
+                          <button className="main-list__action-button-edit-mobile main-list__hide-mobile">
+                            <motion.img
+                              whileHover={{
+                                scale: 1.4,
+                              }}
+                              transition={{ type: 'spring', stiffness: 1000 }}
+                              className="main-list__action-edit-mobile"
+                              src={Edit}
+                              alt="Edit"
+                            />
+                          </button>
+                        </Link>
+                        <Link to="#">
+                          <button
+                            className="main-list__action-button-delete-mobile main-list__hide-mobile"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setModalState({
+                                state: true,
+                                id: user._id,
+                                username: user.username,
+                              });
+                            }}
+                          >
+                            <motion.img
+                              whileHover={{
+                                scale: 1.4,
+                              }}
+                              transition={{ type: 'spring', stiffness: 1000 }}
+                              className="main-list__action-delete-mobile"
+                              src={Delete}
+                              alt="Delete"
+                            />
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <hr className="main-list__bottom-hr-mobile main-list__hide-mobile" />
+                  </div>
+                </motion.div>
+
+                {/* Desktop Workout List */}
+                <motion.div
+                  className="main-list__result-container main-list__hide-tabdesk"
+                  // whileHover={{
+                  //   scale: 1.02,
+                  //   duration: 1,
+                  // }}
+                >
+                  <div className="main-list__username-result-container">
+                    <p className="main-list__username-result main-list__hide-tabdesk">
                       {user.username}
                     </p>
                   </div>
-                  <div className="main-list__date-container-mobile">
-                    <h4 className="main-list__date-label-mobile">DATE</h4>
-                    <p className="main-list__date-mobile main-list__hide-mobile">
-                      {user.date.substring(0, 10)}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="main-list__bottom-section-mobile">
-                  <div className="main-list__description-container-mobile">
-                    <h4 className="main-list__description-label-mobile">
-                      DESCRIPTION
-                    </h4>
-                    <p className="main-list__description-mobile main-list__hide-mobile">
+                  <div className="main-list__description-result-container">
+                    <p className="main-list__description-result main-list__hide-tabdesk">
                       {user.description}
                     </p>
                   </div>
-                  <div className="main-list__action-container-mobile">
-                    <h4 className="main-list__action-label-mobile">ACTION</h4>
-                    <div>
-                      <Link to={'/edit/' + user._id}>
-                        <button className="main-list__action-button-edit-mobile main-list__hide-mobile">
-                          <motion.img
-                            whileHover={{
-                              scale: 1.4,
-                            }}
-                            transition={{ type: 'spring', stiffness: 1000 }}
-                            className="main-list__action-edit-mobile"
-                            src={Edit}
-                            alt="Edit"
-                          />
-                        </button>
-                      </Link>
-                      <Link to="#">
-                        <button
-                          className="main-list__action-button-delete-mobile main-list__hide-mobile"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setModalState({
-                              state: true,
-                              id: user._id,
-                              username: user.username,
-                            });
-                          }}
-                        >
-                          <motion.img
-                            whileHover={{
-                              scale: 1.4,
-                            }}
-                            transition={{ type: 'spring', stiffness: 1000 }}
-                            className="main-list__action-delete-mobile"
-                            src={Delete}
-                            alt="Delete"
-                          />
-                        </button>
-                      </Link>
-                    </div>
+                  <div className="main-list__duration-result-container">
+                    <p className="main-list__duration-result main-list__hide-tabdesk">
+                      {timeConvert(user.duration)}
+                    </p>
                   </div>
-                </div>
-                <div>
-                  <hr className="main-list__bottom-hr-mobile main-list__hide-mobile" />
-                </div>
-              </motion.div>
-
-              {/* Desktop Workout List */}
-              <motion.div
-                className="main-list__result-container main-list__hide-tabdesk"
-                whileHover={{
-                  scale: 1.02,
-                  duration: 1,
-                }}
-              >
-                <div className="main-list__username-result-container">
-                  <p className="main-list__username-result main-list__hide-tabdesk">
-                    {user.username}
-                  </p>
-                </div>
-                <div className="main-list__description-result-container">
-                  <p className="main-list__description-result main-list__hide-tabdesk">
-                    {user.description}
-                  </p>
-                </div>
-                <div className="main-list__duration-result-container">
-                  <p className="main-list__duration-result main-list__hide-tabdesk">
-                    {timeConvert(user.duration)}
-                  </p>
-                </div>
-                <div className="main-list__date-result-container">
-                  <p className="main-list__date-result main-list__hide-tabdesk">
-                    {user.date.substring(0, 10)}
-                  </p>
-                </div>
-                <div className="main-list__action-result-container">
-                  <Link to={'/edit/' + user._id}>
-                    <button className="main-list__action-button-edit main-list__hide-tabdesk">
-                      <motion.img
-                        whileHover={{
-                          scale: 1.4,
-                        }}
-                        transition={{ type: 'spring', stiffness: 1000 }}
-                        className="main-list__action-edit"
-                        src={Edit}
-                        alt="Edit"
-                      />
-                    </button>
-                  </Link>
-                  <Link
-                    to="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setModalState({
-                        state: true,
-                        id: user._id,
-                        username: user.username,
-                      });
-                    }}
-                  >
-                    <button className="main-list__action-button-delete main-list__hide-tabdesk">
-                      <motion.img
-                        whileHover={{
-                          scale: 1.4,
-                        }}
-                        transition={{ type: 'spring', stiffness: 1000 }}
-                        className="main-list__action-delete"
-                        src={Delete}
-                        alt="Delete"
-                      />
-                    </button>
-                  </Link>
-                </div>
-              </motion.div>
-              <hr className="main-list__result-hr main-list__hide-tabdesk" />
-            </div>
-          );
-        })}
+                  <div className="main-list__date-result-container">
+                    <p className="main-list__date-result main-list__hide-tabdesk">
+                      {user.date.substring(0, 10)}
+                    </p>
+                  </div>
+                  <div className="main-list__action-result-container">
+                    <Link to={'/edit/' + user._id}>
+                      <button className="main-list__action-button-edit main-list__hide-tabdesk">
+                        <motion.img
+                          whileHover={{
+                            scale: 1.4,
+                          }}
+                          transition={{ type: 'spring', stiffness: 1000 }}
+                          className="main-list__action-edit"
+                          src={Edit}
+                          alt="Edit"
+                        />
+                      </button>
+                    </Link>
+                    <Link
+                      to="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setModalState({
+                          state: true,
+                          id: user._id,
+                          username: user.username,
+                        });
+                      }}
+                    >
+                      <button className="main-list__action-button-delete main-list__hide-tabdesk">
+                        <motion.img
+                          whileHover={{
+                            scale: 1.4,
+                          }}
+                          transition={{ type: 'spring', stiffness: 1000 }}
+                          className="main-list__action-delete"
+                          src={Delete}
+                          alt="Delete"
+                        />
+                      </button>
+                    </Link>
+                  </div>
+                </motion.div>
+                <hr className="main-list__result-hr main-list__hide-tabdesk" />
+              </div>
+            );
+          })
+        )}
       </motion.div>
     </div>
   );

@@ -1,0 +1,83 @@
+@use '../../styles/partials/global';
+
+.signup {
+  @include global.backgroundImage;
+  padding-bottom: 60px;
+  &__title-container {
+    display: flex;
+    justify-content: center;
+  }
+  &__card {
+    @include global.cardStyle {
+      @include global.tablet {
+        width: 25rem;
+      }
+      &:hover {
+        @include global.cardHoverStyle;
+      }
+    }
+  }
+  &__title {
+    letter-spacing: 2px;
+    font-size: 1.4375rem;
+  }
+  &__image-container {
+    display: flex;
+    justify-content: center;
+  }
+  &__image {
+    background-image: url(../../assets/createUserImage/user.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 12.5rem;
+    height: 12.5rem;
+    border-radius: 9.375rem;
+    @include global.tablet {
+      width: 18.75rem;
+      height: 18.75rem;
+    }
+  }
+  &__firstname-container,
+  &__lastname-container,
+  &__username-container,
+  &__email-container,
+  &__password-container,
+  &__confirm-password-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 1.875rem 0;
+  }
+  &__firstname-label,
+  &__lastname-label,
+  &__username-label,
+  &__email-label,
+  &__password-label,
+  &__confirm-password-label {
+    letter-spacing: 1px;
+    padding-bottom: 0.3125rem;
+  }
+  &__firstname,
+  &__lastname,
+  &__username,
+  &__email,
+  &__password,
+  &__confirm-password {
+    @include global.formInputStyle;
+    &:hover,
+    &:focus {
+      @include global.formInputHoverFocus;
+    }
+  }
+  &__button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__button {
+    @include global.formButtonStyle;
+    &:hover {
+      @include global.buttonHoverStyle;
+    }
+  }
+}

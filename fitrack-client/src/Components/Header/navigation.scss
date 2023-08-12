@@ -11,26 +11,41 @@
   position: fixed;
   width: 100vw;
   backdrop-filter: blur(6px);
+  box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3);
   &__nav {
     display: flex;
     position: relative;
-    justify-content: space-between;
+    height: 100%;
     align-items: center;
     margin: 0 3.125vw 0 3.125vw;
-    @include global.desktop {
-      justify-content: space-around;
-      height: 63px;
-    }
+  }
+  &__logo-burger-container-parent {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+  }
+  &__logo-burger-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+  }
+  &__burger-container {
+    position: relative;
+    z-index: 9999;
+    padding-left: 30px;
+    box-shadow: -1px 0px 0px 0px rgba(255, 255, 255, 0.2);
+    display: flex;
+    height: 100%;
+    align-items: center;
   }
   &__burger {
     width: 35px;
     height: 35px;
-    transform: rotate(180deg);
     &:hover {
       cursor: pointer;
-    }
-    @include global.desktop {
-      display: none;
     }
     &-hide {
       display: none;
@@ -38,22 +53,22 @@
   }
   &__close-container {
     position: absolute;
-    top: -60px;
-    right: 0;
+    top: 34px;
+    left: 20px;
   }
   &__close {
     width: 35px;
     height: 35px;
-    @include global.desktop {
-      display: none;
-    }
     &:hover {
       cursor: pointer;
     }
   }
   &__logo-container {
     display: flex;
-    margin: 0 0 0.625rem 0;
+    padding-right: 30px;
+    height: 100%;
+    margin: 0;
+    align-items: center;
     @include global.tablet {
       font-size: 1.875rem;
     }
@@ -69,9 +84,6 @@
       font-weight: 600;
       margin-bottom: 0;
       font-size: 1.25rem;
-      @include global.tablet {
-        font-size: 1.875rem;
-      }
     }
     &-link {
       display: flex;
@@ -83,58 +95,39 @@
 
   &__list-container {
     display: flex;
-    position: absolute;
-    z-index: 5;
-    right: 0;
-    padding: 20px 0px;
-    border-radius: 0px 0px 4px 4px;
-    top: 100%;
-    width: 100%;
+    flex-direction: column;
     justify-content: center;
+    position: fixed;
+    top: 0;
     left: 0;
-    align-items: flex-end;
-    margin: 0 0 0.625rem 0;
-    @include global.desktop {
-      position: relative;
-      top: 0;
-      width: 20vw;
-      padding: 18px 0;
+    z-index: 999;
+    height: 100vh;
+    width: 80%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    box-shadow: 0.5px 0px 0px rgba(255, 255, 255, 0.5);
+
+    @include global.tablet {
+      width: 30%;
     }
     &-hide {
       display: none;
-      @include global.desktop {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        width: 20vw;
-        position: relative;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 5;
-        margin: 0 0 0.625rem 0;
-        padding: 18px 0 20px;
-      }
     }
   }
 
   &__list {
-    width: 70%;
-    margin: 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin: 0 0 0 21.875vw;
     text-decoration: none;
     list-style: none;
     padding: 0;
-    width: 48.4375vw;
     letter-spacing: 2px;
     @include global.tablet {
-      width: 33.854vw;
       font-size: 1.25rem;
-    }
-    @include global.desktop {
-      width: 20vw;
-      margin-top: 16px;
+      margin: 0 0 0 6.875vw;
     }
 
     &-item {
@@ -155,7 +148,6 @@
         transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
       }
       &:hover {
-        // color: #239b56;
         color: #226f20;
         &:after {
           opacity: 1;
@@ -163,15 +155,73 @@
         }
       }
       &-link {
+        display: flex;
+        align-items: center;
         position: relative;
         text-decoration: none;
         color: global.$graphite;
+        margin-bottom: 10px;
         &--active {
-          // color: #239b56;
+          display: flex;
+          align-items: center;
           color: #226f20;
           text-decoration: none;
+          margin-bottom: 10px;
         }
       }
+      &-icon {
+        width: 25px;
+        height: 25px;
+      }
     }
+  }
+  &__user {
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+  }
+  &__dropdown-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  &__user-name-dropdown-span {
+    margin-left: 5px;
+    display: flex;
+  }
+  &__dropdown-arrow {
+    width: 15px;
+    height: 15px;
+    transform: rotate(90deg);
+  }
+  &__dropdown-list {
+    position: absolute;
+    top: 69px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 15px;
+    width: 150px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  &__dropdown-item {
+    cursor: pointer;
+  }
+  &__login,
+  &__signup {
+    text-decoration: none;
+    color: global.$charcoal;
+    letter-spacing: 1px;
+    &:hover {
+      color: global.$white;
+    }
+    &--active {
+      color: global.$white;
+      text-decoration: none;
+      margin: 0 0 0 10px;
+    }
+  }
+  &__signup {
+    margin: 0 0 0 10px;
   }
 }
