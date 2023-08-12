@@ -1,0 +1,106 @@
+@use '../../styles/partials/global';
+
+.login {
+  @include global.backgroundImage;
+  padding-bottom: 60px;
+  &__title-container {
+    display: flex;
+    justify-content: center;
+  }
+  // &__title {
+  //   margin-top: 100px;
+  // }
+  &__card {
+    @include global.cardStyle {
+      @include global.tablet {
+        width: 25rem;
+      }
+      &:hover {
+        @include global.cardHoverStyle;
+      }
+    }
+  }
+  &__title {
+    letter-spacing: 2px;
+    font-size: 1.4375rem;
+  }
+  &__image-container {
+    display: flex;
+    justify-content: center;
+  }
+  &__image {
+    background-image: url(../../assets/createUserImage/user.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 12.5rem;
+    height: 12.5rem;
+    border-radius: 9.375rem;
+    @include global.tablet {
+      width: 18.75rem;
+      height: 18.75rem;
+    }
+  }
+  &__username-container,
+  &__email-container,
+  &__password-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 1.875rem 0;
+  }
+  &__username-container,
+  &__email-container {
+    margin-bottom: 10px;
+  }
+  &__username-label,
+  &__email-label,
+  &__password-label {
+    letter-spacing: 1px;
+    padding-bottom: 0.3125rem;
+  }
+  &__username,
+  &__email,
+  &__password {
+    @include global.formInputStyle;
+    &:hover,
+    &:focus {
+      @include global.formInputHoverFocus;
+    }
+  }
+  &__button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__button {
+    @include global.formButtonStyle;
+    &:hover {
+      @include global.buttonHoverStyle;
+    }
+  }
+
+  &__switch-input-button {
+    font-family: 'MontserratR';
+    border: none;
+    letter-spacing: 1px;
+    margin: 0 0 0 10px;
+    padding: 0;
+    width: 30%;
+    background: none;
+    &:hover {
+      border: none;
+      color: global.$green;
+      transition: 0.1s;
+      cursor: pointer;
+    }
+  }
+  &__switch-input-container {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+  }
+  &__switch-input {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+}
