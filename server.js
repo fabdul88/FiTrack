@@ -28,7 +28,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, 'fitrack-client', 'build')));
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, 'fitrack-client/build')));
 
   app.get('*', (req, res) => {
     res.sendFile(
@@ -38,6 +39,8 @@ if (process.env.NODE_ENV === 'production') {
       }
     );
   });
+} else {
+  app.get('/', (req, res) => res.send('server is ready'));
 }
 
 const PORT = process.env.PORT || 8080;
