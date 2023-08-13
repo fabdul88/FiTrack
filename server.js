@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 
   app.get('*', (req, res) => {
     res.sendFile(
-      path.resolve(_dirname, 'fitrack-client', 'build', 'index.html'),
+      path.resolve(__dirname, 'fitrack-client', 'build', 'index.html'),
       function (err) {
         res.status(500).send(err);
       }
