@@ -191,9 +191,12 @@ const SignUp = () => {
                   {isLoading ? 'Loading...' : 'Signup'}
                 </button>
               </div>
-              <div>
-                <p>
-                  Already have an account? <Link to="/login">Login</Link>
+              <div className="signup__account-container">
+                <p className="signup__account">
+                  Have an account?{' '}
+                  <Link className="signup__account-link" to="/login">
+                    Sign In
+                  </Link>
                 </p>
               </div>
             </form>

@@ -147,9 +147,12 @@ const Login = () => {
                   {isLoading ? 'Loading...' : 'Login'}
                 </button>
               </div>
-              <div>
-                <p>
-                  Don't have an account? <Link to="/signup">Register</Link>
+              <div className="login__account-container">
+                <p className="login__account">
+                  Don't have an account?{' '}
+                  <Link className="login__account-link" to="/signup">
+                    Sign Up
+                  </Link>
                 </p>
               </div>
             </form>

@@ -78,10 +78,16 @@ exports.authUser = async (req, res) => {
       (await user.matchPassword(password))
     ) {
       generateToken(res, user._id);
+      console.log('PLACE DATA>>>', user.username);
 
       res.status(201).json({
         message: 'successfully logged in user',
-        data: { username, email },
+        data: {
+          username: user.username,
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+        },
       });
     } else {
       res.status(401).json({ message: 'Invalid email/username or password' });

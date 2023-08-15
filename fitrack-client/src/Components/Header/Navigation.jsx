@@ -71,7 +71,9 @@ export default function Navigation() {
             <div className="nav-container__user-container">
               <div className="nav-container__dropdown-container">
                 <p className="nav-container__user">
-                  {userInfo.data.email || userInfo.data.username}{' '}
+                  {`${userInfo.data.firstname} ${userInfo.data.lastname.charAt(
+                    0
+                  )}`}
                   <span className="nav-container__user-name-dropdown-span">
                     <img
                       className="nav-container__dropdown-arrow"

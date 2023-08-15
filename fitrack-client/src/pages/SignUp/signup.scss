@@ -24,6 +24,7 @@
   &__image-container {
     display: flex;
     justify-content: center;
+    margin: 0 0 30px 0;
   }
   &__image {
     background-image: url(../../assets/createUserImage/user.svg);
@@ -76,8 +77,21 @@
   }
   &__button {
     @include global.formButtonStyle;
+    width: 100%;
     &:hover {
       @include global.buttonHoverStyle;
+    }
+  }
+  &__account {
+    color: global.$white;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+    &-link {
+      font-family: 'MontserratSB';
+      color: #374e77;
+      text-decoration: underline;
+      letter-spacing: 1px;
     }
   }
 }

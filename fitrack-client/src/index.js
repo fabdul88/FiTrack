@@ -24,6 +24,7 @@ import {
   EditWorkout,
   PageNotFound,
 } from './lazyIndex';
+import FallbackUI from './Components/FallbackUI/FallbackUI';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +48,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<FallbackUI />}>
         <AnimatePresence mode="wait">
           <RouterProvider router={router} />
         </AnimatePresence>
