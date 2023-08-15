@@ -25,6 +25,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 
 if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, './ fitrack-client/build')));
 
   app.get('*', (req, res) => {
