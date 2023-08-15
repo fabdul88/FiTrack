@@ -3,7 +3,7 @@
   "name": "FiTrack",
   "builds": [
     {
-      "src": "./server.js",
+      "src": "*.js",
       "use": "@vercel/node"
     }
   ],
