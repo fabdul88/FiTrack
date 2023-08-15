@@ -10,7 +10,11 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ['https://fi-track-frontend.vercel.app/'],
+  })
+);
 app.use(express.json()); // Parsing JSON
 app.use(morgan('dev')); // http request logger
 app.use(cookieParser());
