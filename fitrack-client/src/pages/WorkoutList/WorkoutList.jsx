@@ -19,7 +19,9 @@ const WorkoutList = () => {
 
   useEffect(() => {
     axios
-      .get('https://fi-track.vercel.app/api/workouts')
+      .get('https://fi-track.vercel.app/api/workouts', {
+        withCredentials: true,
+      })
       .then((res) => {
         setWorkouts(res.data.workouts);
       })

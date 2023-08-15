@@ -9,7 +9,8 @@ const generateToken = (res, userId) => {
     httpOnly: true,
     maxAge: 1 * 24 * 60 * 60 * 1000,
     secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'strict',
+    domain: 'fi-track-frontend.vercel.app',
+    // sameSite: 'strict',
   });
 };
 

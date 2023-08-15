@@ -13,6 +13,7 @@ const app = express();
 app.use(
   cors({
     origin: ['https://fi-track-frontend.vercel.app'],
+    credentials: true,
   })
 );
 app.use(express.json()); // Parsing JSON
