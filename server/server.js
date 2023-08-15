@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: ['https://fi-track-frontend.vercel.app/'],
+    origin: ['https://fi-track-frontend.vercel.app'],
   })
 );
 app.use(express.json()); // Parsing JSON
