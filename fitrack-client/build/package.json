@@ -4,10 +4,10 @@
   "description": "Fitrack app",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
     "start": "node server.js",
+    "client": "cd fitrack-client && npm start",
     "server": "nodemon server.js",
-    "client": "cd fitrack-client && npm start"
+    "test": "jest"
   },
   "author": "Abdul Farhan",
   "license": "MIT",
