@@ -20,7 +20,7 @@ const CreateUser = () => {
     };
 
     const createUserPromise = axios
-      .post('/api/users/add', user)
+      .post('https://fi-track.vercel.app/api/users/add', user)
       .then((res) => {
         navigate('/createworkout', { state: user });
         return res.data;

@@ -37,7 +37,7 @@ const EditWorkout = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/workouts/${params.id}`)
+      .get(`https://fi-track.vercel.app/api/workouts/${params.id}`)
       .then((res) => {
         dispatch({
           type: ACTION.SET_INPUTS_TO_FETCHED_DATA,
@@ -71,7 +71,10 @@ const EditWorkout = () => {
     };
 
     const editWorkoutPromise = axios
-      .patch(`/api/workouts/update/${params.id}`, workout)
+      .patch(
+        `https://fi-track.vercel.app/api/workouts/update/${params.id}`,
+        workout
+      )
       .then((res) => {
         navigate({
           pathname: '/workoutlist',
