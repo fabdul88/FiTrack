@@ -59,7 +59,7 @@ const CreateWorkout = () => {
     };
 
     const addWorkoutPromise = axios
-      .post('https://fi-track.vercel.app/api/workouts/add', workout)
+      .post('/api/workouts/add', workout)
       .then((res) => {
         navigate('/workoutlist', { state: { username: name } });
         console.log(res.data);

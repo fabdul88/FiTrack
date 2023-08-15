@@ -10,12 +10,7 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
-app.use(
-  cors({
-    origin: ['https://fi-track-frontend.vercel.app'],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json()); // Parsing JSON
 app.use(morgan('dev')); // http request logger
 app.use(cookieParser());
@@ -29,23 +24,22 @@ app.use('/api/workouts', workoutsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 
-// if (process.env.NODE_ENV === 'production') {
-//   const __dirname = path.resolve();
-//   app.use(express.static(path.join(__dirname, './ fitrack-client/build')));
-
-//   app.get('*', (req, res) => {
-//     res.sendFile(
-//       path.join(__dirname, './fitrack-client/build/index.html'),
-//       function (err) {
-//         res.status(500).send(err);
-//       }
-//     );
-//   });
-// } else {
-//   app.get('/', (req, res) => res.send('server is ready'));
-// }
-
 app.get('/', (req, res) => res.send('Hello from the server'));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, './ fitrack-client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.join(__dirname, './fitrack-client/build/index.html'),
+      function (err) {
+        res.status(500).send(err);
+      }
+    );
+  });
+} else {
+  app.get('/', (req, res) => res.send('server is ready'));
+}
 
 const PORT = process.env.PORT || 8080;
 // Connecting to MongoDB Atlas then establishing an Express Server connection

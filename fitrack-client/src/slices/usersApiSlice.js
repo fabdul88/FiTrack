@@ -1,5 +1,5 @@
 import { apiSlice } from './apiSlice';
-const USERS_URL = 'https://fi-track.vercel.app/api/auth';
+const USERS_URL = '/api/auth';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

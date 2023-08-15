@@ -19,9 +19,7 @@ const WorkoutList = () => {
 
   useEffect(() => {
     axios
-      .get('https://fi-track.vercel.app/api/workouts', {
-        withCredentials: true,
-      })
+      .get('/api/workouts')
       .then((res) => {
         setWorkouts(res.data.workouts);
       })
@@ -30,7 +28,7 @@ const WorkoutList = () => {
 
   const deleteWorkout = (id) => {
     const deleteWorkoutPromise = axios
-      .delete(`https://fi-track.vercel.app/api/workouts/${id}`)
+      .delete(`/api/workouts/${id}`)
       .then((res) => {
         return res.data;
       })
