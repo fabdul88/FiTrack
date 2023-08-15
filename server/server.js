@@ -28,21 +28,21 @@ app.use('/api/workouts', workoutsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, './ fitrack-client/build')));
+// if (process.env.NODE_ENV === 'production') {
+//   const __dirname = path.resolve();
+//   app.use(express.static(path.join(__dirname, './ fitrack-client/build')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(
-      path.join(__dirname, './fitrack-client/build/index.html'),
-      function (err) {
-        res.status(500).send(err);
-      }
-    );
-  });
-} else {
-  app.get('/', (req, res) => res.send('server is ready'));
-}
+//   app.get('*', (req, res) => {
+//     res.sendFile(
+//       path.join(__dirname, './fitrack-client/build/index.html'),
+//       function (err) {
+//         res.status(500).send(err);
+//       }
+//     );
+//   });
+// } else {
+//   app.get('/', (req, res) => res.send('server is ready'));
+// }
 
 app.get('/', (req, res) => res.send('Hello from the server'));
 
