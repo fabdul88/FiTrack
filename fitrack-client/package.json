@@ -2,7 +2,7 @@
   "name": "abdul-farhan-capstone",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "https://fi-track.vercel.app/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",

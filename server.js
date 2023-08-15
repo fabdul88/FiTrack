@@ -40,6 +40,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => res.send('server is ready'));
 }
 
+app.get('/', (req, res) => res.send('Hello from the server'));
+
 const PORT = process.env.PORT || 8080;
 // Connecting to MongoDB Atlas then establishing an Express Server connection
 connectDB().then(() => {
