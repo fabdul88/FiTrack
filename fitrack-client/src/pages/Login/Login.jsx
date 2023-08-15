@@ -140,7 +140,7 @@ const Login = () => {
                       background: 'rgba(143, 48, 13,0.8)',
                     }}
                   >
-                    {error.data.message}
+                    {error?.data?.message}
                   </p>
                 )}
                 <button className="login__button" type="submit">
