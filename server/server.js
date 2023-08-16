@@ -27,11 +27,12 @@ app.use('/api/auth', authRouter);
 app.get('/', (req, res) => res.send('Hello from the server'));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, './ fitrack-client/build')));
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, './client/build')));
 
   app.get('*', (req, res) => {
     res.sendFile(
-      path.join(__dirname, './fitrack-client/build/index.html'),
+      path.join(__dirname, './client/build/index.html'),
       function (err) {
         res.status(500).send(err);
       }
