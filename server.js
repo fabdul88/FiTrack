@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const path = require('path');
@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json()); // Parsing JSON
-app.use(morgan('dev')); // http request logger
+// app.use(morgan('dev')); // http request logger
 app.use(cookieParser());
 
 // Routes
