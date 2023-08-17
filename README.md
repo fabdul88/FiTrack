@@ -1,17 +1,70 @@
 # FiTrack
 
-This react application was created to help people during the pandemic, by defining their own fitness workouts, with an intention of helping users keep up with their mental and physical health.
+## <u>Intro</u>
 
-Some Key Aspects:
+A personal workout routine planner, built as a RESTful API in Node.js using express and mongoose for the backend, and react.js and redux toolkit for the frontend.
 
-- Automatic form redirecting upon submission of user data.
-- Shows the users workout goals in a list format.
-- Shows the Username, description of the workout, duration of the workout in minutes, the date the workout is intended to be performed, and an actions category, to either edit or delete the workout.
+### backend
 
-Deployed live on [Heroku](https://fitrack-mern.herokuapp.com/)
+The API endpoints were tested in postman before integrating the frontend. Authentication uses HTTPOnly cookies to prevent client-side scripts from accessing data, and JSON web tokens used to identify the authenticated user. Passwords are hashed using bcrypt.
 
-**Note:** Free tier version of Heroku takes some time to start up the live project.
+### frontend
 
-![fitrackHome](https://user-images.githubusercontent.com/60126985/142768877-45ae13b6-129b-41cf-8141-b7bdb22c06ce.png)
+User state is managed with redux toolkit and persisted through local storage. The UI is styled with Sass and its animations are achieved using framer motion. Toast notifications are triggered during any HTTP actions/methods throughout the app.
 
-![fitrackWorkoutList](https://user-images.githubusercontent.com/60126985/142768945-ed6d3381-e2f1-475b-a582-3c9959a52662.png)
+### database
+
+MongoDB Atlas cloud service.
+
+### deployment
+
+Deployed live on **[Cyclic](https://real-red-squid-tutu.cyclic.cloud/)**
+
+### <u>Some things to consider</u>
+
+backend .env example:
+
+NODE_ENV=your value here
+ATLAS_URI=your value here
+JWT_SECRET=your value here
+
+## <u>Screenshots</u>
+
+![homepage](https://github.com/fabdul88/FiTrack/assets/60126985/c5e10b02-e5c5-4f0b-b132-377c0dc28ed3)
+
+![loginscreen](https://github.com/fabdul88/FiTrack/assets/60126985/712f5ed6-1b2c-421e-b374-a6b2e382b8c6)
+
+## <u>Installation and Run on local machine</u>
+
+```bash
+# clone it
+git clone https://github.com/fabdul88/FiTrack.git
+cd FiTrack
+
+# from root directory
+# install dependencies for backend
+npm install
+
+# from root directory
+# start backend dev server
+npm run server
+
+# go to client folder
+# install dependencies for frontend
+cd client && npm install
+```
+
+go to the client folder in the project and add a proxy in package.json before "dependencies" **for local development**
+
+```json
+"proxy": "http://localhost:8080",
+```
+
+**Note:** <i>When deploying, remove proxy from package.json</i>
+
+```bash
+# from client folder
+# Start frontend
+npm start
+
+```
