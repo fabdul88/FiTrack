@@ -24,9 +24,11 @@ Deployed live on **[Cyclic](https://real-red-squid-tutu.cyclic.cloud/)**
 
 backend .env example:
 
+```sh
 NODE_ENV=your value here
 ATLAS_URI=your value here
 JWT_SECRET=your value here
+```
 
 ## <u>Screenshots</u>
 
