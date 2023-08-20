@@ -4,7 +4,7 @@ let UserModel = require('../models/user.model');
 
 exports.getWorkout = async (req, res) => {
   const { _id } = req.user;
-  console.log(req.user);
+
   try {
     const userWorkouts = await UserModel.findOne({
       userProfile: _id,
@@ -17,25 +17,9 @@ exports.getWorkout = async (req, res) => {
   } catch (error) {
     res.status(400).json(error);
   }
-
-  // WorkoutModel.find()
-  //   .sort({ createdAt: 'desc' })
-  //   .then((workouts) => {
-  //     // if (workouts?.userId === currentUserId) {
-  //     res.json(workouts);
-  //     // }
-  //   })
-  // UserModel.aggregate([{ $match: { userProfile: currentUserId } }])
-  //   .sort({ createdAt: 'desc' })
-  //   .then((workouts) => {
-  //     console.log('backend----------------', workouts);
-  //     res.send(workouts);
-  //   })
-  // .catch((err) => res.status(400).json(err));
 };
 
 exports.addWorkout = async (req, res) => {
-  console.log('ADD WORKOUT TEST>>>', req.body);
   // current user
   const { _id } = req.user;
   const { username, description, duration, date } = req.body;
@@ -62,13 +46,6 @@ exports.addWorkout = async (req, res) => {
       .limit(1)
       .sort({ $natural: -1 });
 
-    console.log(
-      'LAST WORKOUT:>>>>>>>>',
-      lastWorkoutDocument,
-      'LAST USER:>>>>>>>>>>>',
-      user
-    );
-
     // update the user document with the workout _id obtained, as a reference.
     await UserModel.findByIdAndUpdate(
       user._id,
@@ -78,10 +55,10 @@ exports.addWorkout = async (req, res) => {
       { runValidators: true, new: true }
     )
       .then((doc) => {
-        console.log('Successfully found by Id and updated >>>>>>>', doc);
+        return doc;
       })
       .catch((err) => {
-        throw new Error('FAILED TO FIND BY ID AND UPDATE >>>>', err);
+        console.error(err);
       });
 
     res.status(201).json({
@@ -89,7 +66,8 @@ exports.addWorkout = async (req, res) => {
       data: req.body,
     });
   } catch (error) {
-    throw new Error('FAILED TO ADD A WORKOUT >>>> ', error);
+    res.status(400).json({ message: 'Failed to add a workout', err: error });
+    // throw Error(error);
   }
 };
 
@@ -106,7 +84,6 @@ exports.updateWorkout = (req, res) => {
   // Editing / updating a user workout
   WorkoutModel.findById(req.params.id)
     .then((workout) => {
-      console.log('frontend edit', req.body);
       workout.username = req.body.username;
       workout.description = req.body.description;
       workout.duration = Number(req.body.duration);

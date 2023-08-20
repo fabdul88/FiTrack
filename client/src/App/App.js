@@ -6,7 +6,7 @@ import './app.scss';
 
 const App = () => {
   return (
-    <div className="app" style={{ overflowX: 'hidden', overflowY: 'hidden' }}>
+    <div className="app">
       <Navigation />
       <Outlet />
     </div>

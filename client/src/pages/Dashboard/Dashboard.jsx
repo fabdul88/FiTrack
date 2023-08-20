@@ -5,8 +5,6 @@ import './dashboard.scss';
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
-  console.log(userInfo);
-
   return (
     <div className="dashboard">
       <h1 className="dashboard__title">Dashboard</h1>

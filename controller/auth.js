@@ -27,6 +27,22 @@ exports.registerUsers = async (req, res) => {
   } else if (password !== confirmPassword) {
     res.status(400).json({ message: 'passwords do not match' });
     return;
+  } else if (
+    firstname.length === 0 ||
+    lastname.length === 0 ||
+    username.length === 0 ||
+    email.length === 0 ||
+    password.length === 0 ||
+    confirmPassword.length === 0
+  ) {
+    res.status(400).json({ message: 'please fill out the specified fields' });
+    return;
+  } else if (
+    !email.match(
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )
+  ) {
+    return res.status(400).json({ message: 'please enter a valid email' });
   }
 
   try {
@@ -78,7 +94,6 @@ exports.authUser = async (req, res) => {
       (await user.matchPassword(password))
     ) {
       generateToken(res, user._id);
-      console.log('PLACE DATA>>>', user.username);
 
       res.status(201).json({
         message: 'successfully logged in user',

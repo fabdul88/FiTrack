@@ -26,8 +26,6 @@ app.use('/api/workouts', workoutsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 
-// app.get('/', (req, res) => res.send('Hello from the server'));
-
 if (process.env.NODE_ENV === 'production') {
   const __dirname = path.resolve();
   app.use(express.static(path.join(__dirname, './client/build')));

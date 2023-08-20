@@ -9,7 +9,6 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  // useLocation,
 } from 'react-router-dom';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import { AnimatePresence } from 'framer-motion';

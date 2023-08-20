@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAllWorkoutsQuery } from '../../slices/workoutsApiSlice';
+import { getWorkouts } from '../../slices/workoutSlice';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { timeConvert } from '../../helpers/convertTime';
+import { date2str } from '../../helpers/date2srt';
 import axios from 'axios';
 import Delete from '../../assets/icons/delete.svg';
 import Edit from '../../assets/icons/edit.svg';
@@ -10,21 +14,31 @@ import './workoutList.scss';
 import Modal from '../../Components/Modal/Modal';
 
 const WorkoutList = () => {
+  const dispatch = useDispatch();
+
+  const { data, isFetching, isLoading, isError, error } = useAllWorkoutsQuery();
+  const userWorkouts = useSelector((state) => state.workouts);
+  console.log(data);
+
   const [workouts, setWorkouts] = useState([]);
   const [modalState, setModalState] = useState({
     state: false,
     id: null,
     username: '',
   });
-
   useEffect(() => {
-    axios
-      .get('/api/workouts')
-      .then((res) => {
-        setWorkouts(res.data.workouts);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    if (data) {
+      try {
+        dispatch(getWorkouts(data.workouts));
+        setWorkouts(userWorkouts.workouts);
+      } catch (err) {
+        console.error(err?.data?.message || err.error);
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  }, [data, dispatch, workouts]);
+  console.log(userWorkouts);
+  // console.log('WORKOUTS', workouts);
 
   const deleteWorkout = (id) => {
     const deleteWorkoutPromise = axios
@@ -35,7 +49,7 @@ const WorkoutList = () => {
       .catch((err) => {
         throw new Error(err);
       });
-    setWorkouts(workouts.filter((element) => element._id !== id));
+    setWorkouts(workouts?.filter((element) => element._id !== id));
 
     toast.promise(
       deleteWorkoutPromise,
@@ -89,7 +103,7 @@ const WorkoutList = () => {
   return (
     <div className="main-list">
       <Toaster position="bottom-right" />
-      {modalState.state === true && modalState.id.length > 0 ? (
+      {modalState?.state === true && modalState?.id?.length > 0 ? (
         <Modal
           deleteWorkout={deleteWorkout}
           setModalState={setModalState}
@@ -130,12 +144,12 @@ const WorkoutList = () => {
           <hr className="main-list__category-hr main-list__hide-tabdesk" />
         </div>
 
-        {workouts.length === 0 ? (
+        {workouts?.length === 0 ? (
           <p style={{ fontFamily: 'MontserratSB' }}>
             No workouts added , try adding a workout
           </p>
         ) : (
-          workouts.map((user) => {
+          workouts?.map((user) => {
             return (
               <div key={user._id}>
                 {/* mobile and tablet Workout List */}
@@ -157,7 +171,7 @@ const WorkoutList = () => {
                     <div className="main-list__date-container-mobile">
                       <h4 className="main-list__date-label-mobile">DATE</h4>
                       <p className="main-list__date-mobile main-list__hide-mobile">
-                        {user.date.substring(0, 10)}
+                        {date2str(new Date(user.date), 'yyyy-MM-dd')}
                       </p>
                     </div>
                   </div>
@@ -243,7 +257,7 @@ const WorkoutList = () => {
                   </div>
                   <div className="main-list__date-result-container">
                     <p className="main-list__date-result main-list__hide-tabdesk">
-                      {user.date.substring(0, 10)}
+                      {date2str(new Date(user.date), 'yyyy-MM-dd')}
                     </p>
                   </div>
                   <div className="main-list__action-result-container">

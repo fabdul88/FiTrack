@@ -26,7 +26,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate('/login');
+      navigate('/dashboard');
     }
   }, [navigate, userInfo]);
 
@@ -47,11 +47,7 @@ const SignUp = () => {
       password: registeredUser.password,
       confirmPassword: registeredUser.confirmPassword,
     };
-    console.log('REGISTER DATA>>>>>>', data);
-    // if (registeredUser.password !== registeredUser.confirmPassword) {
-    //   toast.error('Passwords do not match');
-    //   // setMatchPasswordError(true);
-    // } // else {
+
     try {
       const res = await register({
         firstname: data.firstname,
@@ -61,13 +57,13 @@ const SignUp = () => {
         password: data.password,
         confirmPassword: data.confirmPassword,
       }).unwrap();
-      toast.success('Successfully logged in!');
       // setMatchPasswordError(false);
       dispatch(setCredentials({ ...res }));
-      navigate('/login');
+      toast.success('successfully logged in');
+      navigate('/dashboard');
     } catch (err) {
       toast.error(err?.data?.message || err.error);
-      console.log(err?.data?.message || err.error);
+      console.error(err?.data?.message || err.error);
     }
     // }
   };
@@ -127,7 +123,7 @@ const SignUp = () => {
                 </label>
                 <input
                   className="signup__email"
-                  type="email"
+                  type="text"
                   name="email"
                   id="email"
                   onChange={(e) => handleChange(e)}
@@ -161,19 +157,6 @@ const SignUp = () => {
                 />
               </div>
               <div className="signup__button-container">
-                {/* {matchPasswordError && (
-                  <p
-                    style={{
-                      color: '#ffffff',
-                      border: '1px solid #8f300d',
-                      padding: '5px',
-                      borderRadius: '4px',
-                      background: 'rgba(143, 48, 13,0.8)',
-                    }}
-                  >
-                    Passwords do not match
-                  </p>
-                )} */}
                 {error && (
                   <p
                     style={{

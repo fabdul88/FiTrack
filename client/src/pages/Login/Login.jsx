@@ -53,7 +53,7 @@ const Login = () => {
       dispatch(setCredentials({ ...res }));
       navigate('/dashboard');
     } catch (err) {
-      console.log(err?.data?.message || err.error);
+      console.error(err?.data?.message || err.error);
       toast.error(err?.data?.message || err.error);
     }
   };

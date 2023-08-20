@@ -1,15 +1,21 @@
 import React, { useEffect, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useGetSingleWorkoutQuery,
+  useEditWorkoutMutation,
+} from '../../slices/workoutsApiSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import { date2str } from '../../helpers/date2srt';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import './editWorkout.scss';
 
 const EditWorkout = () => {
-  const params = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
+  const { data, isFetching, isLoading, isError } = useGetSingleWorkoutQuery(id);
+  const [editWorkout] = useEditWorkoutMutation();
+  console.log('GetSingleWorkout RTK Query', data);
   const ACTION = {
     EDIT_WORKOUT_DATA: 'editWorkoutData',
     SET_INPUTS_TO_FETCHED_DATA: 'getFetchedData',
@@ -36,22 +42,23 @@ const EditWorkout = () => {
   const [state, dispatch] = useReducer(reducer, initialWorkoutState);
 
   useEffect(() => {
-    axios
-      .get(`/api/workouts/${params.id}`)
-      .then((res) => {
+    if (data) {
+      try {
         dispatch({
           type: ACTION.SET_INPUTS_TO_FETCHED_DATA,
           payload: {
             ...initialWorkoutState,
-            username: res?.data.username,
-            description: res?.data.description,
-            duration: res?.data.duration,
-            date: date2str(new Date(res?.data.date), 'yyyy-MM-dd'),
+            username: data.username,
+            description: data.description,
+            duration: data.duration,
+            date: date2str(new Date(data.date), 'yyyy-MM-dd'),
           },
         });
-      })
-      .catch((err) => console.log(err));
-  }, [params.id]);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }, [data]);
 
   const updateInputValue = (event) => {
     dispatch({
@@ -61,50 +68,61 @@ const EditWorkout = () => {
     });
   };
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
-    const workout = {
-      username: state.username,
-      description: state.description,
-      duration: state.duration,
-      date: state.date,
-    };
-
-    const editWorkoutPromise = axios
-      .patch(`/api/workouts/update/${params.id}`, workout)
-      .then((res) => {
-        navigate({
-          pathname: '/workoutlist',
-          state: { username: state.username },
-        });
-        return res.data;
-      })
-      .catch((err) => {
-        throw new Error(err);
+    try {
+      await editWorkout({
+        id: id,
+        username: state.username,
+        description: state.description,
+        duration: state.duration,
+        date: state.date,
+      }).unwrap();
+      toast.success('Successfully edited a workout!');
+      navigate({
+        pathname: '/workoutlist',
+        state: { username: state.username },
       });
+    } catch (err) {
+      console.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err.error);
+    }
 
-    toast.promise(
-      editWorkoutPromise,
-      {
-        loading: 'Processing',
-        error: 'error editing a workout',
-        success: 'Successfully edited a workout',
-      },
-      {
-        style: {
-          minWidth: '250px',
-          background: 'rgba(255,255,255,0.4)',
-          backdropFilter: 'blur(6px)',
-          color: '#000000',
-        },
-        success: {
-          duration: 5000,
-        },
-        error: {
-          duration: 5000,
-        },
-      }
-    );
+    // const editWorkoutPromise = axios
+    //   .patch(`/api/workouts/update/${params.id}`, workout)
+    //   .then((res) => {
+    //     navigate({
+    //       pathname: '/workoutlist',
+    //       state: { username: state.username },
+    //     });
+    //     return res.data;
+    //   })
+    //   .catch((err) => {
+    //     throw new Error(err);
+    //   });
+
+    // toast.promise(
+    //   editWorkoutPromise,
+    //   {
+    //     loading: 'Processing',
+    //     error: 'error editing a workout',
+    //     success: 'Successfully edited a workout',
+    //   },
+    //   {
+    //     style: {
+    //       minWidth: '250px',
+    //       background: 'rgba(255,255,255,0.4)',
+    //       backdropFilter: 'blur(6px)',
+    //       color: '#000000',
+    //     },
+    //     success: {
+    //       duration: 5000,
+    //     },
+    //     error: {
+    //       duration: 5000,
+    //     },
+    //   }
+    // );
   }
 
   // Framer motion animations

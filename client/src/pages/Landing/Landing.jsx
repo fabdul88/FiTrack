@@ -4,46 +4,6 @@ import { motion } from 'framer-motion';
 import './landing.scss';
 
 const Landing = () => {
-  // wger workout API
-  // useEffect(() => {
-  //   // fetch('https://wger.de/api/v2/workoutlog/', {
-  //   //   method: 'GET',
-  //   //   headers: {
-  //   //     'Content-Type': 'application/json',
-  //   //     Authorization: 'Token af5ebdb8746c476dc68a892e28618677e3c73195',
-  //   //     // credentials: { username: 'faz', password: 'Kukks123' },
-  //   //     // Authorization: 'Basic' + btoa('faz:Kukks123'),
-  //   //     // Authorization: `Basic ${btoa('faz:Kukks123')}`,
-  //   //   },
-  //   // })
-  //   //   .then((res) => {
-  //   //     return res.json();
-  //   //   })
-  //   //   .then((data) => {
-  //   //     console.log(data);
-  //   //   });
-  //   // =================
-  //   // fetch(' https://wger.de/api/v2/exercise/')
-  //   //   .then((response) => response.json())
-  //   //   .then((data) => console.log(data));
-  //   // ==============
-  //   // fetch('https://wger.de/api/v2/exercise/?category=11')
-  //   //   .then((response) => response.json())
-  //   //   .then((data) => console.log(data));
-  //   // ============
-  //   fetch('https://wger.de/api/v2/exerciseinfo/?limit=1200')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // console.log(data);
-  //       const res = data.results.filter((exercise) => {
-  //         // extract only those which have images and are in english
-  //         return exercise.language.id === 2 && exercise.images.length !== 0;
-  //       });
-  //       console.log(res);
-  //     })
-  //     .catch((error) => console.error(error));
-  // }, []);
-
   const navigate = useNavigate();
   const descriptionVariants = {
     in: {

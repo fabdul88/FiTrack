@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAddWorkoutMutation } from '../../slices/workoutsApiSlice';
 import { date2str } from '../../helpers/date2srt';
 import toast, { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
@@ -9,7 +10,10 @@ import './createWorkout.scss';
 
 const CreateWorkout = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo);
+  const { workouts } = useSelector((state) => state.workouts);
+  console.log('IN CREATE WORKOUT', workouts);
+
+  const [addWorkout] = useAddWorkoutMutation();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -46,50 +50,61 @@ const CreateWorkout = () => {
     });
   };
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     const workout = {
       ...state,
     };
 
-    console.log('ADD WORKOUT>>>>', workout);
-
     const name = {
       username: state.username,
     };
+    try {
+      await addWorkout({
+        username: state.username,
+        description: state.description,
+        duration: state.duration,
+        date: state.date,
+      }).unwrap();
+      toast.success('Successfully added a workout!');
+      navigate('/workoutlist', { state: { username: name } });
+    } catch (err) {
+      console.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err.error);
+    }
 
-    const addWorkoutPromise = axios
-      .post('/api/workouts/add', workout)
-      .then((res) => {
-        navigate('/workoutlist', { state: { username: name } });
-        console.log(res.data);
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    // const addWorkoutPromise = axios
+    //   .post('/api/workouts/add', workout)
+    //   .then((res) => {
+    //     navigate('/workoutlist', { state: { username: name } });
+    //     return res.data;
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
 
-    toast.promise(
-      addWorkoutPromise,
-      {
-        loading: 'Processing',
-        error: 'error adding a workout',
-        success: 'successfully added a workout ',
-      },
-      {
-        style: {
-          minWidth: '250px',
-          background: 'rgba(255,255,255,0.4)',
-          backdropFilter: 'blur(6px)',
-          color: '#000000',
-        },
-        success: {
-          duration: 5000,
-        },
-        error: {
-          duration: 5000,
-        },
-      }
-    );
+    // toast.promise(
+    //   addWorkoutPromise,
+    //   {
+    //     loading: 'Processing',
+    //     error: 'error adding a workout',
+    //     success: 'successfully added a workout ',
+    //   },
+    //   {
+    //     style: {
+    //       minWidth: '250px',
+    //       background: 'rgba(255,255,255,0.4)',
+    //       backdropFilter: 'blur(6px)',
+    //       color: '#000000',
+    //     },
+    //     success: {
+    //       duration: 5000,
+    //     },
+    //     error: {
+    //       duration: 5000,
+    //     },
+    //   }
+    // );
   }
 
   // Framer motion animations
